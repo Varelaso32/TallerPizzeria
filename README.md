@@ -12,3 +12,10 @@ Control de Versiones
 Autenticación y Seguridad
 
 * Este proyecto esta sin sus dependencias, a la hora de clonarlo utilizar el comando en la consola composer install (composer i)
+* Para poder que corra la aplicación con la base de datos, se esta usando xamp, se crea una BD llamada pizzeria, y en el .env de nuestro laravel ponemos lo siguinete:
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=pizzeria
+DB_USERNAME=root
+DB_PASSWORD=
