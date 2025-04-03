@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name',  length: 255);
-            $table->string('email',  length: 255)->unique();
-            $table->string('password',  length: 255);
-            $table->enum('role', ['cliente', 'empleado']);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('address', length: 255)->nullable();
+            $table->string('phone', length: 20)->nullable();
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();
-
         });
-
     }
 
     /**
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('clients');
     }
 };
