@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone', length: 20)->nullable();
 
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
