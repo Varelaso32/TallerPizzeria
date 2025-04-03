@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('email',  length: 255)->unique();
             $table->string('password',  length: 255);
             $table->enum('role', ['cliente', 'empleado']);
+
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('update_at')->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
         });
 
