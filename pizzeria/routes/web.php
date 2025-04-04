@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployesController;
-use App\Http\Controllers\raw_materialsController
+use App\Http\Controllers\raw_materialsController;
 use App\Http\Controllers\SuppliersController;
 
 use Illuminate\Support\Facades\Route;
