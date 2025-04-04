@@ -56,7 +56,7 @@ class EmployesController extends Controller
         )
         ->get();
 
-    return view('employees.index', ['employees' => $employees]);
+        return view('employees.index', ['employees' => $employees]);
     }
 
     /**
@@ -88,6 +88,19 @@ class EmployesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Employes::find($id);
+        $client->delete();
+
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.id')
+        ->select(
+            'employees.*', 
+            'users.name as user_name', 
+            'users.email as user_email', 
+            'users.role as user_role'
+        )
+        ->get();
+
+        return view('employees.index', ['employees' => $employees]);
     }
 }
