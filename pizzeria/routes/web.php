@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\raw_materialsController;
 use App\Http\Controllers\SuppliersController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,4 +56,12 @@ Route::get('/suppliers/create', [SuppliersController::class, 'create'])->name('s
 Route::delete('/suppliers/{supplier}', [SuppliersController::class, 'destroy'])->name('suppliers.destroy');
 Route::put('/suppliers/{supplier}', [SuppliersController::class, 'update'])->name('suppliers.update');
 Route::get('/suppliers/{supplier}/edit', [SuppliersController::class, 'edit'])->name('suppliers.edit');
+
+// Rutas para Raw_materials
+Route::get('/raw_materials', [raw_materialsController::class, 'index'])->name('raw_materials.index');
+Route::post('/raw_materials', [raw_materialsController::class, 'store'])->name('raw_materials.store');
+Route::get('/raw_materials/create', [raw_materialsController::class, 'create'])->name('raw_materials.create');
+Route::delete('/raw_materials/{raw_material}', [raw_materialsController::class, 'destroy'])->name('raw_materials.destroy');
+Route::put('/raw_materials/{raw_material}', [raw_materialsController::class, 'update'])->name('raw_materials.update');
+Route::get('/raw_materials/{raw_material}/edit', [raw_materialsController::class, 'edit'])->name('raw_materials.edit');
 
