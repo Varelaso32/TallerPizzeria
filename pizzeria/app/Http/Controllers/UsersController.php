@@ -48,25 +48,35 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
-        //
+        $user = Users::find($id);
+
+        return view('users.edit', ['user' => $user]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
-        //
+        $user = Users::find($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+
+        if (!empty($request->password)) {
+            $user->password = bcrypt($request->password); 
+        }
+
+        $user->save();
+
+        $users = DB::table('users')->get();
+
+        return view('users.index', ['users' => $users]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $user = Users::find($id);
