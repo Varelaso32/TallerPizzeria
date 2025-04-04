@@ -11,18 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('order_pizza', function (Blueprint $table) {
             $table->id();
-            $table->string('name',  length: 255);
-            $table->string('email',  length: 255)->unique();
-            $table->string('password',  length: 255);
-            $table->enum('role', ['cliente', 'empleado']);
-
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('pizza_size_id')->constrained('pizza_size')->onDelete('cascade');
+            $table->integer('quantity');
+            
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
         });
-
     }
 
     /**
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('order_pizza');
     }
 };
