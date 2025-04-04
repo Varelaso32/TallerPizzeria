@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\suppliers;
+use Illuminate\Support\Facades\DB;
 
 class SuppliersController extends Controller
 {
     public function index()
     {
-        $suppliers = suppliers::paginate(10); // Paginar los resultados
-        return view('suppliers.index', compact('suppliers')); // Llamar la vista correcta
+        $supplier = DB::table('suppliers')
+        ->select('id', 'name', 'contact_info', 'create_at', 'update_at')
+        ->get();
+
+        return view('suppliers.index',['suppliers' => $supplier]); 
     }
 
     public function create()
     {
-        return view('suppliers.create'); // Llamar la vista para crear
+        return view('suppliers.new'); 
     }
 
     public function store(Request $request)
@@ -35,8 +39,7 @@ class SuppliersController extends Controller
 
     public function show($id)
     {
-        $supplier = suppliers::findOrFail($id);
-        return view('suppliers.show', compact('supplier'));
+        
     }
 
     public function edit($id)
