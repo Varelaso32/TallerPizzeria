@@ -39,7 +39,16 @@
 
                 <div class="mb-3">
                     <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="Ingrese teléfono">
+                    <input type="text"
+                        class="form-control"
+                        id="phone"
+                        name="phone"
+                        inputmode="numeric"
+                        pattern="[0-9]+"
+                        maxlength="20"
+                        placeholder="Ingrese teléfono"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    <div class="form-text">Solo números permitidos.</div>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
