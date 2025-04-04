@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\SuppliersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -45,3 +46,12 @@ Route::get('/employees/create', [EmployesController::class, 'create'])->name('em
 Route::delete('/employees/{employee}', [EmployesController::class, 'destroy'])->name('employees.destroy');
 Route::put('/employees/{employee}', [EmployesController::class, 'update'])->name('employees.update');
 Route::get('/employees/{employee}/edit', [EmployesController::class, 'edit'])->name('employees.edit');
+
+// Rutas para Suppliers
+Route::get('/suppliers', [SuppliersController::class, 'index'])->name('suppliers.index');
+Route::post('/suppliers', [SuppliersController::class, 'store'])->name('suppliers.store');
+Route::get('/suppliers/create', [SuppliersController::class, 'create'])->name('suppliers.create');
+Route::delete('/suppliers/{supplier}', [SuppliersController::class, 'destroy'])->name('suppliers.destroy');
+Route::put('/suppliers/{supplier}', [SuppliersController::class, 'update'])->name('suppliers.update');
+Route::get('/suppliers/{supplier}/edit', [SuppliersController::class, 'edit'])->name('suppliers.edit');
+

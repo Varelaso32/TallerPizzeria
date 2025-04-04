@@ -11,7 +11,7 @@ class SuppliersController extends Controller
     public function index()
     {
         $supplier = DB::table('suppliers')
-        ->select('id', 'name', 'contact_info', 'create_at', 'update_at')
+        ->select('id', 'name', 'contact_info', 'created_at', 'updated_at')
         ->get();
 
         return view('suppliers.index',['suppliers' => $supplier]); 
