@@ -47,33 +47,43 @@ class ClientsController extends Controller
         return view('clients.index', ['clients' => $clients]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+   
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
-        //
+        $client = Clients::find($id);
+
+        $users = DB::table('users')
+            ->orderBy('name')
+            ->get();
+
+        return view('clients.edit', ['client' => $client, 'users' => $users]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
-        //
+        $client = Clients::find($id);
+
+        $client->user_id = $request->user_id;
+        $client->address = $request->address;
+        $client->phone = $request->phone;
+        $client->save();
+
+        $clients = DB::table('clients')
+        ->join('users', 'clients.user_id', '=', 'users.id')
+        ->select('clients.*', 'users.name as user_name', 'users.email as user_email', 'users.role as user_role')
+        ->get();
+
+        return view('clients.index', ['clients' => $clients]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $client = Clients::find($id);
