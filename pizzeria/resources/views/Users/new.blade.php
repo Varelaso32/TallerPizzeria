@@ -28,7 +28,8 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" required placeholder="Ingrese una contraseña segura">
+                    <input type="password" class="form-control" id="password" name="password" required minlength="6" placeholder="Ingrese una contraseña segura">
+                    <div class="form-text">Mínimo 6 caracteres.</div>
                 </div>
 
                 <div class="mb-3">
