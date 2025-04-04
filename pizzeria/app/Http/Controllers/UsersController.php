@@ -8,9 +8,7 @@ use App\Models\Users;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $users = DB::table('users')
@@ -20,25 +18,31 @@ class UsersController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        return view('users.new');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        $user = new Users();
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password); 
+        $user->role = $request->role;
+        $user->save();
+
+        $users = DB::table('users')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('users.index', ['users' => $users]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         //
