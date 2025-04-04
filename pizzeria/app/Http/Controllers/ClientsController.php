@@ -8,9 +8,7 @@ use App\Models\Clients;
 
 class ClientsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $clients = DB::table('clients')
@@ -21,20 +19,32 @@ class ClientsController extends Controller
         return view('clients.index', ['clients' => $clients]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+        $users = DB::table('users')
+        ->orderBy('name')
+        ->get();
+
+        return view('clients.new', ['users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
-        //
+        $client = new Clients();
+
+        $client->user_id = $request->user_id;
+        $client->address = $request->address;
+        $client->phone = $request->phone;
+        $client->save();
+
+        $clients = DB::table('clients')
+        ->join('users', 'clients.user_id', '=', 'users.id')
+        ->select('clients.*', 'users.name as user_name', 'users.email as user_email', 'users.role as user_role')
+        ->get();
+
+        return view('clients.index', ['clients' => $clients]);
     }
 
     /**
