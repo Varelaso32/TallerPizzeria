@@ -76,6 +76,14 @@ class ClientsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Clients::find($id);
+        $client->delete();
+
+        $clients = DB::table('clients')
+        ->join('users', 'clients.user_id', '=', 'users.id')
+        ->select('clients.*', 'users.name as user_name', 'users.email as user_email', 'users.role as user_role')
+        ->get();
+
+        return view('clients.index', ['clients' => $clients]);
     }
 }
