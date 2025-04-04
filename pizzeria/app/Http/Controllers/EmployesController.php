@@ -59,33 +59,52 @@ class EmployesController extends Controller
         return view('employees.index', ['employees' => $employees]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit(string $id)
     {
-        //
+        $employee = Employes::find($id);
+
+        $users = DB::table('users')
+            ->orderBy('name')
+            ->get();
+
+        return view('employees.edit', ['employee' => $employee, 'users' => $users]);
+
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, string $id)
     {
-        //
+        $employee = Employes::find($id);
+
+        $employee->user_id = $request->user_id;
+        $employee->position = $request->position;
+        $employee->identification_number = $request->identification_number;
+        $employee->salary = $request->salary;
+        $employee->hire_date = $request->hire_date;
+        $employee->save();
+
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.id')
+        ->select(
+            'employees.*', 
+            'users.name as user_name', 
+            'users.email as user_email', 
+            'users.role as user_role'
+        )
+        ->get();
+
+        return view('employees.index', ['employees' => $employees]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
     {
         $client = Employes::find($id);
