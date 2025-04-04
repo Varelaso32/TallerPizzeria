@@ -42,7 +42,7 @@ class UsersController extends Controller
         return view('users.index', ['users' => $users]);
     }
 
-    
+
     public function show(string $id)
     {
         //
@@ -69,6 +69,13 @@ class UsersController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = Users::find($id);
+        $user->delete();
+
+        $users = DB::table('users')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('users.index', ['users' => $users]);
     }
 }
