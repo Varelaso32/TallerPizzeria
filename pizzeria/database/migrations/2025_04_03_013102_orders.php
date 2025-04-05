@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('total_price', 8, 2);
             $table->enum('status', ['pendiente', 'en_preparacion', 'listo', 'entregado']);
             $table->enum('delivery_type', ['en_local', 'a_domicilio']);
-            $table->foreignId('delivery_person_id')->nullable()->constrained('employees')->onDelete('set null');
+            $table->foreignId('delivery_person_id')->nullable()->constrained('employees')->onDelete('restrict');
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
