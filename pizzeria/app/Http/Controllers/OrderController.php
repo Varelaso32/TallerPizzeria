@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -11,7 +13,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = DB::table('orders')
+            ->join('branches', 'orders.branch_id', '=', 'branches.id')
+            ->select('orders.*', 'branches.name')
+            ->get();
+
+        return view('orders.index', [
+            'orders' => $orders
+        ]);
     }
 
     /**
