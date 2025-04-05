@@ -11,7 +11,11 @@ class ingredientsController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = DB:: table('ingredients')
+            ->join('pizzas', 'ingredients.pizza_id', '=', 'pizzas.id')
+            ->select('ingredients.*', 'pizzas.name as pizza_name')
+            ->get();
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**
