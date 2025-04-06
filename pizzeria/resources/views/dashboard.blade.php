@@ -43,6 +43,12 @@
                     <h3 class="text-lg font-bold text-red-600 mb-2">🍕 Ingredientes por Pizza</h3>
                     <p class="text-black text-sm">Administra las combinaciones para tus pizzas.</p>
                 </a>
+
+                <!-- Tarjeta: Pizza raw maeterias -->
+                <a href="{{ route('pizza_raw_material.index') }}" class="bg-white border border-red-600 hover:bg-red-100 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🥣 Materia Prima Para Pizza</h3>
+                    <p class="text-black text-sm">Administra las materias primas asociadas a cada pizza.</p>
+                </a>
             </div>
         </div>
     </div>
