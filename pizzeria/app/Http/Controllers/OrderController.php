@@ -14,8 +14,17 @@ class OrderController extends Controller
     public function index()
     {
         $orders = DB::table('orders')
+            ->select([
+                'orders.*',
+                'branches.name as branch_name',
+                'emp_user.name as employee_name',
+                'cli_user.name as client_name'
+            ])
             ->join('branches', 'orders.branch_id', '=', 'branches.id')
-            ->select('orders.*', 'branches.name')
+            ->join('employees', 'orders.delivery_person_id', '=', 'employees.id')
+            ->join('users as emp_user', 'employees.user_id', '=', 'emp_user.id')
+            ->join('clients', 'orders.client_id', '=', 'clients.id')
+            ->join('users as cli_user', 'clients.user_id', '=', 'cli_user.id')
             ->get();
 
         return view('orders.index', [
