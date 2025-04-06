@@ -153,6 +153,11 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $order = Order::find($id);
+        $order->delete();
+
+        return view('orders.index', [
+            'orders' => $this->getOrders()
+        ]);
     }
 }
