@@ -55,6 +55,27 @@ class PizzaIngredientController extends Controller
 
         return view('pizza_ingredient.index', ['pizzaIngredients' => $pizzaIngredients]);
     }
+
+    public function destroy(string $id)
+    {
+        $pizzaIngredients = pizza_ingredient::find($id);
+        $pizzaIngredients->delete();
+    
+        $pizzaIngredients = DB::table('pizza_ingredient')
+            ->join('pizzas', 'pizza_ingredient.pizza_id', '=', 'pizzas.id')
+            ->join('ingredients', 'pizza_ingredient.ingredient_id', '=', 'ingredients.id')
+            ->select(
+                'pizza_ingredient.id',
+                'pizzas.name as pizza_name',
+                'ingredients.name as ingredient_name',
+                'pizza_ingredient.created_at',
+                'pizza_ingredient.updated_at'
+            )
+            ->get();
+    
+        return view('pizza_ingredient.index', ['pizzaIngredients' => $pizzaIngredients]);
+    }
+    
     
 
 }
