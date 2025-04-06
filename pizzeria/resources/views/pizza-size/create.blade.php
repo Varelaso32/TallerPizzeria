@@ -22,7 +22,7 @@
         </div>
     </nav>
 
-    <div class="container bg-white bg-opacity-75 p-4 rounded-3 shadow bg-blur">
+    <div class="container p-4 rounded shadow" style="background-color: orange;">
 
         <h1>Crear Tamaño de Pizza</h1>
 

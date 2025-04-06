@@ -19,7 +19,7 @@
     </nav>
 
 
-    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
+    <div class="container p-4 rounded shadow" style="background-color: orange;">
     <h1>Ingredientes en Pizzas</h1>
 
     <a href="{{ route('ingredient.create') }}" class="btn btn-primary mb-3">Agregar Ingrediente a Pizza</a>

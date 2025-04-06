@@ -19,7 +19,13 @@
     </nav>
 
 
-    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
+    <div class="container p-4 rounded shadow" style="background-color: orange;">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
     <h1>Agregar Ingrediente a Pizza</h1>
 
     <form action="{{ route('ingredient.store') }}" method="POST">

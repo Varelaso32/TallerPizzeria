@@ -24,7 +24,7 @@
 
     
 
-    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
+    <div class="container p-4 rounded shadow" style="background-color: orange;">
         <h1>Editar Tamaño de Pizza</h1>
     <form action="{{ route('pizza-size.update', $pizzaSize->id) }}" method="POST">
         @csrf
