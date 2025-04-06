@@ -22,8 +22,10 @@
         </div>
     </nav>
 
-    <h1>Editar Tamaño de Pizza</h1>
+    
 
+    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
+        <h1>Editar Tamaño de Pizza</h1>
     <form action="{{ route('pizza-size.update', $pizzaSize->id) }}" method="POST">
         @csrf
         @method('PUT')
@@ -48,7 +50,9 @@
         <input type="number" name="price" id="price" step="0.01" value="{{ $pizzaSize->price }}" required><br><br>
 
         <button type="submit">Actualizar</button>
+        <button href="{{route('pizza-size.index')}}">Return</button>
     </form>
+    </div>
 
     
 </body>

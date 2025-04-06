@@ -20,20 +20,25 @@
                 <a href="{{ route('pizza-size.create') }}" class="btn btn-primary me-2">Crear</a>
                 <a href="{{ route('ingredient.index') }}" class="btn btn-warning text-white me-2">Ingredientes</a>
         </div>
-    </nav><h1>Detalles del Tamaño de Pizza</h1>
 
+
+    </nav>
+   
+    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
+    <h1 style="color: black; font-size: 2.5rem; font-weight: bold;">Detalles del Tamaño de Pizza</h1><br>
+        <div id="idv" class="shadow fw-bold" style="background-color: rgba(255, 165, 0, 0.5); aling-items: center; padding: 20px; border-radius: 10px;">
         <p><strong>ID:</strong> {{ $pizzaSize->id }}</p>
         <p><strong>Pizza:</strong> {{ $pizzaSize->pizza->name }}</p>
         <p><strong>Tamaño:</strong> {{ $pizzaSize->size }}</p>
         <p><strong>Precio:</strong> ${{ $pizzaSize->price }}</p>
         <p><strong>Creado:</strong> {{ $pizzaSize->created_at }}</p>
         <p><strong>Actualizado:</strong> {{ $pizzaSize->updated_at }}</p>
-
+        </div>
         <div class="btn-group" role="group">
-    <a href="{{ route('pizza-size.edit', $pizzaSize->id) }}" class="btn btn-warning btn-sm">Editar</a>
-    <a href="{{ route('pizza-size.index') }}" class="btn btn-info btn-sm">Volver</a>
-</div>
-
+            <a href="{{ route('pizza-size.edit', $pizzaSize->id) }}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{{ route('pizza-size.index') }}" class="btn btn-info btn-sm">Volver</a>
+        </div>
+    </div>
     
 </body>
 </html>

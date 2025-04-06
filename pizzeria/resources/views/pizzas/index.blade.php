@@ -23,8 +23,8 @@
     </nav>
 
     <!-- Navbar de acciones -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
-        <a class="navbar-brand" href="#">Opciones</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-10">
+        
         <div class="collapse navbar-collapse">
             <div class="navbar-nav">
                 
