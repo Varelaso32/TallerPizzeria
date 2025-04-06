@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployesController;
 use App\Http\Controllers\raw_materialsController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\PizzaIngredientController;
+use App\Http\Controllers\PurchaseController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -72,6 +73,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pizza_ingredient/{pizza_ingredient}', [PizzaIngredientController::class, 'destroy'])->name('pizza_ingredient.destroy');
     Route::put('/pizza_ingredient/{pizza_ingredient}', [PizzaIngredientController::class, 'update'])->name('pizza_ingredient.update');
     Route::get('/pizza_ingredient/{pizza_ingredient}/edit', [PizzaIngredientController::class, 'edit'])->name('pizza_ingredient.edit');
+
+
+    // Rutas para Compras
+    Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
+    Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
+    Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
+    Route::delete('/purchases/{purchase}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
+    Route::put('/purchases/{purchase}', [PurchaseController::class, 'update'])->name('purchases.update');
+    Route::get('/purchases/{purchase}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
 
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
     
