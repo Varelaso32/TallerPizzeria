@@ -1,3 +1,6 @@
+<head>
+    <link rel="icon" href="{{ asset('img/pizza-planet.png') }}" type="image/png">
+</head>
 <x-guest-layout>
     <!-- Estado de sesión -->
     <x-auth-session-status class="mb-4 text-red-600" :status="session('status')" />
