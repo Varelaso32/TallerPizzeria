@@ -1,0 +1,39 @@
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.table thead {
+    background-color: #c1121f;
+    color: #ffffff;
+}
+
+.btn-danger,
+.btn-danger:focus,
+.btn-danger:active {
+    background-color: #c1121f !important;
+    border-color: #c1121f !important;
+}
+
+.btn-outline-dark:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.card-style {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.btn-icon {
+    padding: 0.375rem 0.55rem;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+.table td,
+.table th {
+    vertical-align: middle;
+}
