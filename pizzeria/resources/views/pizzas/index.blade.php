@@ -33,43 +33,6 @@
     </nav>
 
     <!-- Contenido principal -->
-    <main class="container py-5">
-        <h1 class="text-center mb-4">Cecep Pizza</h1>
-
-
-        <div class="row">
-            <!-- Pizza 1 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card pizza-card mb-4">
-                    <div class="card-header pizza-header">
-                        <h3 class="pizza-title">Pizza Fundida con Pepperoni</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Tenemos muchas razones para que pidas ya muchas <strong>Pizza fundida de pepperoni</strong>: exceso de ingredientes,...</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-secondary">Familiar - 10 Porciones</span>
-                            <span class="pizza-price">$51.400</span>
-                        </div>                       
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pizza 2 -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card pizza-card mb-4">
-                    <div class="card-header pizza-header">
-                        <h3 class="pizza-title">Pizza de Pepperoni y Piña</h3>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">¡Bienvenidas las ganas de <strong>Pizza de Pepperoni y Piña</strong>! Estás a un paso de tener la mejor combinación de la ciudad.</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge bg-secondary">Mediana - 8 Porciones</span>
-                            <span class="pizza-price">$28.400</span>
-                        </div>                       
-                    </div>                    
-                </div>
-            </div>
-        </div>
 
 
         @if(session('success'))
@@ -90,7 +53,7 @@
                     <div class="card-body">
                         <p class="card-text">Descripción de la pizza {{ $pizza->name }} con los mejores ingredientes.</p>
                         <div class="mt-auto">
-                            @foreach($pizzas->sizes as $size)
+                            @foreach($pizza->sizes as $size)
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge bg-secondary">{{ ucfirst($size->size) }}</span>
                                 <span class="pizza-price">${{ number_format($size->price, 2) }}</span>
@@ -100,10 +63,10 @@
                     </div>
                     <div class="card-footer bg-transparent">
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('pizza.edit', $pizza->id) }}" class="btn btn-sm btn-warning">
+                            <a href="{{ route('pizzas.edit', $pizza->id) }}" class="btn btn-sm btn-warning">
                                 <i class="bi bi-pencil"></i> Editar
                             </a>
-                            <form action="{{ route('pizza.destroy', $pizza->id) }}" method="POST">
+                            <form action="{{ route('pizzas.destroy', $pizza->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar esta pizza?')">

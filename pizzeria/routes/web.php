@@ -57,15 +57,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
     });
 
-    Route::get('pizza-size', [PizzaSizeController::class, 'index'])->name('pizza-size.index'); // Recuperar lista
-Route::get('pizza-size/create', [PizzaSizeController::class, 'create'])->name('pizza-size.create'); // Crear - formulario
-Route::post('pizza-size', [PizzaSizeController::class, 'store'])->name('pizza-size.store'); // Crear - guardar
+        Route::get('pizza-size', [PizzaSizeController::class, 'index'])->name('pizza-size.index'); 
+        Route::get('pizza-size/create', [PizzaSizeController::class, 'create'])->name('pizza-size.create'); 
+        Route::post('pizza-size', [PizzaSizeController::class, 'store'])->name('pizza-size.store'); 
 
-Route::get('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'show'])->name('pizza-size.show'); // Recuperar individual
-Route::get('pizza-size/{pizzaSize}/edit', [PizzaSizeController::class, 'edit'])->name('pizza-size.edit'); // Editar - formulario
-Route::put('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'update'])->name('pizza-size.update'); // Actualizar - guardar cambios
+        Route::get('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'show'])->name('pizza-size.show'); 
+        Route::get('pizza-size/{pizzaSize}/edit', [PizzaSizeController::class, 'edit'])->name('pizza-size.edit'); 
+        Route::put('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'update'])->name('pizza-size.update'); 
 
-Route::delete('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'destroy'])->name('pizza-size.destroy'); // Eliminar
+        Route::delete('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'destroy'])->name('pizza-size.destroy');
 });
 
 

@@ -29,8 +29,10 @@
         <p><strong>Creado:</strong> {{ $pizzaSize->created_at }}</p>
         <p><strong>Actualizado:</strong> {{ $pizzaSize->updated_at }}</p>
 
-        <a href="{{ route('pizza-size.edit', $pizzaSize->id) }}">Editar</a> |
-        <a href="{{ route('pizza-size.index') }}">Volver al listado</a>
+        <div class="btn-group" role="group">
+    <a href="{{ route('pizza-size.edit', $pizzaSize->id) }}" class="btn btn-warning btn-sm">Editar</a>
+    <a href="{{ route('pizza-size.index') }}" class="btn btn-info btn-sm">Volver</a>
+</div>
 
     
 </body>

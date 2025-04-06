@@ -16,7 +16,7 @@
   
     <nav class="navbar bg-dark">
         <div class="container-fluid justify-content-start">
-                <a href="{{ route('pizzas.index') }}" class="btn btn-success me-2">Pizzas</a>
+                <a href="{{ route('pizzas.index') }}" class="btn btn-success me-2">Ir a Pizzas</a>
                 <a href="{{ route('pizza-size.create') }}" class="btn btn-primary me-2">New Size</a>
                 <a href="{{ route('ingredient.index') }}" class="btn btn-warning text-white me-2">Ingredientes</a>
         </div>
@@ -40,8 +40,14 @@
                     <td>{{ $size->size }}</td>
                     <td>${{ $size->price }}</td>
                     <td>
-                        <a href="{{ route('pizza-size.show', $size->id) }}">Ver</a> |
-                        <a href="{{ route('pizza-size.edit', $size->id) }}">Editar</a> |
+                    <div class="btn-group" role="group">
+                        <a href="{{ route('pizza-size.show', $size->id) }}" class="btn btn-info btn-sm">
+                            <i class="fas fa-eye"></i> Ver
+                                </a>
+                                <a href="{{ route('pizza-size.edit', $size->id) }}" class="btn btn-warning btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                    </div>
                         <form action="{{ route('pizza-size.destroy', $size->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
@@ -52,6 +58,11 @@
             @endforeach
         </tbody>
     </table>
+
+    <div class="container mt-4">
+        <a href="{{ route('pizzas.index') }}" class="btn btn-primary">Volver menu Principal</a>
+
+
 
 
     

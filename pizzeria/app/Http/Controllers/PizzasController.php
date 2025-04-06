@@ -17,11 +17,7 @@ class PizzasController extends Controller
      */
     public function index()
     {
-        $pizzas = DB::table('pizzas')
-            ->join('pizza_size', 'pizzas.id', '=', 'pizza_size.pizza_id')
-            ->select('pizzas.*', 'pizza_size.size as size_name', 'pizza_size.price as size_price')
-            ->get();
-        
+        $pizzas = Pizza::with('sizes')->get();
         return view('pizzas.index', compact('pizzas'));
     }
 
