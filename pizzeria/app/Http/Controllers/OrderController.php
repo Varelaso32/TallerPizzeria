@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    private function getOrders()
     {
         $orders = DB::table('orders')
             ->select([
@@ -26,6 +23,14 @@ class OrderController extends Controller
             ->join('clients', 'orders.client_id', '=', 'clients.id')
             ->join('users as cli_user', 'clients.user_id', '=', 'cli_user.id')
             ->get();
+        return $orders;
+    }
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $orders = $this->getOrders();
 
         return view('orders.index', [
             'orders' => $orders
@@ -76,19 +81,7 @@ class OrderController extends Controller
         $order->delivery_person_id = $request->input('delivery_person_id');
         $order->save();
 
-        $orders = DB::table('orders')
-            ->select([
-                'orders.*',
-                'branches.name as branch_name',
-                'emp_user.name as employee_name',
-                'cli_user.name as client_name'
-            ])
-            ->join('branches', 'orders.branch_id', '=', 'branches.id')
-            ->join('employees', 'orders.delivery_person_id', '=', 'employees.id')
-            ->join('users as emp_user', 'employees.user_id', '=', 'emp_user.id')
-            ->join('clients', 'orders.client_id', '=', 'clients.id')
-            ->join('users as cli_user', 'clients.user_id', '=', 'cli_user.id')
-            ->get();
+        $orders = $this->getOrders();
 
         return view('orders.index', [
             'orders' => $orders
