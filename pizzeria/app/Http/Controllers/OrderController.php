@@ -81,7 +81,6 @@ class OrderController extends Controller
         $order->delivery_person_id = $request->input('delivery_person_id');
         $order->save();
 
-        $orders = $this->getOrders();
 
         return view('orders.index', [
             'orders' => $this->getOrders()
@@ -134,7 +133,19 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order = Order::find($id);
+
+        $order->client_id = $request->input('client_id');
+        $order->branch_id = $request->input('branch_id');
+        $order->total_price = $request->input('total_price');
+        $order->status = $request->input('status');
+        $order->delivery_type = $request->input('delivery_type');
+        $order->delivery_person_id = $request->input('delivery_person_id');
+        $order->save();
+
+        return view('orders.index', [
+            'orders' => $this->getOrders()
+        ]);
     }
 
     /**
