@@ -75,12 +75,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/pizza_ingredient/{pizza_ingredient}/edit', [PizzaIngredientController::class, 'edit'])->name('pizza_ingredient.edit');
 
     // Rutas para Orders
-    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
-    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
-    Route::get('/order/create', [OrderController::class, 'create'])->name('order.create');
-    Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
-    Route::put('/order/{order}', [OrderController::class, 'update'])->name('order.update');
-    Route::get('/order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
+    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
+    Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
 
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
 
