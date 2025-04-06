@@ -37,7 +37,22 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $clients = DB::table('clients')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->select('clients.id', 'users.name')
+            ->get();
+        $branches = DB::table('branches')
+            ->select('id', 'name')
+            ->get();
+        $delivery_persons = DB::table('employees')
+            ->join('users', 'employees.user_id', '=', 'users.id')
+            ->select('employees.id', 'users.name')
+            ->get();
+        return view('orders.create', [
+            'clients' => $clients,
+            'branches' => $branches,
+            'delivery_persons' => $delivery_persons
+        ]);
     }
 
     /**
