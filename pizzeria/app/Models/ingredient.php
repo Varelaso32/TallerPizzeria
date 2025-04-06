@@ -15,8 +15,8 @@ class Ingredient extends Model
         return $this->belongsTo(Pizza::class);
     }
 
-    public function ingredient()
+    public function ingredients()
     {
-        return $this->belongsTo(Ingredient::class, 'ingredient_id'); // si tienes un catálogo de ingredientes con este modelo
+        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
     }
 }
