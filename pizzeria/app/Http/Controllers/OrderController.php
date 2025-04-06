@@ -37,17 +37,24 @@ class OrderController extends Controller
      */
     public function create()
     {
+        // Trae todos los clientes
         $clients = DB::table('clients')
             ->join('users', 'clients.user_id', '=', 'users.id')
             ->select('clients.id', 'users.name')
             ->get();
+
+        // Trae todas las sucursales
         $branches = DB::table('branches')
             ->select('id', 'name')
             ->get();
+
+        // Solo trae los mensajeros
         $delivery_persons = DB::table('employees')
             ->join('users', 'employees.user_id', '=', 'users.id')
             ->select('employees.id', 'users.name')
+            ->where('employees.position', 'mensajero')
             ->get();
+
         return view('orders.create', [
             'clients' => $clients,
             'branches' => $branches,
