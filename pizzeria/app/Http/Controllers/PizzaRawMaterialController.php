@@ -44,14 +44,12 @@ class PizzaRawMaterialController extends Controller
 
     public function store(Request $request)
     {
-        // Crear nueva relación pizza <-> materia prima
         $ingredient = new PizzaRawMaterial();
         $ingredient->pizza_id = $request->pizza_id;
         $ingredient->raw_material_id = $request->raw_material_id;
         $ingredient->quantity = $request->quantity;
         $ingredient->save();
 
-        // Consultar nuevamente la lista de relaciones para mostrar en index
         $pizzaIngredients = DB::table('pizza_raw_material')
             ->join('pizzas', 'pizza_raw_material.pizza_id', '=', 'pizzas.id')
             ->join('raw_materials', 'pizza_raw_material.raw_material_id', '=', 'raw_materials.id')
@@ -62,37 +60,59 @@ class PizzaRawMaterialController extends Controller
             )
             ->get();
 
-        // Retornar a la vista index con los datos actualizados
         return view('pizza_raw_material.index', ['pizzaIngredients' => $pizzaIngredients]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        //
+        $ingredient = PizzaRawMaterial::find($id);
+
+        $pizzas = DB::table('pizzas')
+            ->orderBy('name')
+            ->get();
+
+        $rawMaterials = DB::table('raw_materials')
+            ->orderBy('name')
+            ->get();
+
+        return view('pizza_raw_material.edit', [
+            'ingredient' => $ingredient,
+            'pizzas' => $pizzas,
+            'rawMaterials' => $rawMaterials
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
-        //
+        $ingredient = PizzaRawMaterial::find($id);
+
+        $ingredient->pizza_id = $request->pizza_id;
+        $ingredient->raw_material_id = $request->raw_material_id;
+        $ingredient->quantity = $request->quantity;
+        $ingredient->save();
+
+        $pizzaIngredients = DB::table('pizza_raw_material')
+            ->join('pizzas', 'pizza_raw_material.pizza_id', '=', 'pizzas.id')
+            ->join('raw_materials', 'pizza_raw_material.raw_material_id', '=', 'raw_materials.id')
+            ->select(
+                'pizza_raw_material.*',
+                'pizzas.name as pizza_name',
+                'raw_materials.name as raw_material_name'
+            )
+            ->get();
+
+        return view('pizza_raw_material.index', ['pizzaIngredients' => $pizzaIngredients]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         $pizzaIngredients = PizzaRawMaterial::find($id);
