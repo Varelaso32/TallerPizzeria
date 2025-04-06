@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\EmployesController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\raw_materialsController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\PizzaIngredientController;
@@ -73,8 +74,16 @@ Route::middleware('auth')->group(function () {
     Route::put('/pizza_ingredient/{pizza_ingredient}', [PizzaIngredientController::class, 'update'])->name('pizza_ingredient.update');
     Route::get('/pizza_ingredient/{pizza_ingredient}/edit', [PizzaIngredientController::class, 'edit'])->name('pizza_ingredient.edit');
 
+    // Rutas para Orders
+    Route::get('/order', [OrderController::class, 'index'])->name('order.index');
+    Route::post('/order', [OrderController::class, 'store'])->name('order.store');
+    Route::get('/order/create', [OrderController::class, 'create'])->name('order.create');
+    Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+    Route::put('/order/{order}', [OrderController::class, 'update'])->name('order.update');
+    Route::get('/order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
+
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
-    
+
 });
 
 
