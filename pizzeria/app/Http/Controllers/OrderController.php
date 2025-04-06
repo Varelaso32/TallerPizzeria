@@ -84,7 +84,7 @@ class OrderController extends Controller
         $orders = $this->getOrders();
 
         return view('orders.index', [
-            'orders' => $orders
+            'orders' => $this->getOrders()
         ]);
     }
 
