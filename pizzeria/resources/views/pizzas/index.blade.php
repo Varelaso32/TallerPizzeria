@@ -57,7 +57,7 @@
                             @foreach($pizza->sizes as $size)
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge bg-secondary">{{ ucfirst($size->size) }}</span>
-                                <span class="pizza-price">${{ number_format($size->price, 2) }}</span>
+                                <span class="pizza-price">${{ number_format($size->price) }}</span>
                             </div>
                             @endforeach
                         </div>
