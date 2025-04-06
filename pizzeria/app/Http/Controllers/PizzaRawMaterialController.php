@@ -8,9 +8,7 @@ use App\Models\PizzaRawMaterial;
 
 class PizzaRawMaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $pizzaIngredients = DB::table('pizza_raw_material')
@@ -26,20 +24,46 @@ class PizzaRawMaterialController extends Controller
         return view('pizza_raw_material.index', ['pizzaIngredients' => $pizzaIngredients]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
-        //
+        $pizzas = DB::table('pizzas')
+        ->orderBy('name')
+        ->get();
+
+        $rawMaterials = DB::table('raw_materials')
+            ->orderBy('name')
+            ->get();
+
+        return view('pizza_raw_material.new', [
+            'pizzas' => $pizzas,
+            'rawMaterials' => $rawMaterials
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        //
+        // Crear nueva relación pizza <-> materia prima
+        $ingredient = new PizzaRawMaterial();
+        $ingredient->pizza_id = $request->pizza_id;
+        $ingredient->raw_material_id = $request->raw_material_id;
+        $ingredient->quantity = $request->quantity;
+        $ingredient->save();
+
+        // Consultar nuevamente la lista de relaciones para mostrar en index
+        $pizzaIngredients = DB::table('pizza_raw_material')
+            ->join('pizzas', 'pizza_raw_material.pizza_id', '=', 'pizzas.id')
+            ->join('raw_materials', 'pizza_raw_material.raw_material_id', '=', 'raw_materials.id')
+            ->select(
+                'pizza_raw_material.*',
+                'pizzas.name as pizza_name',
+                'raw_materials.name as raw_material_name'
+            )
+            ->get();
+
+        // Retornar a la vista index con los datos actualizados
+        return view('pizza_raw_material.index', ['pizzaIngredients' => $pizzaIngredients]);
     }
 
     /**
