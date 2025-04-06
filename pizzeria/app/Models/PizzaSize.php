@@ -1,25 +1,19 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pizza extends Model
+class PizzaSize extends Model
 {
     use HasFactory;
-    protected $table = 'pizzas';
-    protected $primaryKey = 'id';
-    protected $fillable = ['name'];
 
+    protected $table = 'pizza_size'; 
 
-    protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
+    protected $fillable = ['pizza_id', 'size', 'price'];
 
-    public function sizes()
+    public function pizza()
     {
-    return $this->hasMany(PizzaSize::class);
+        return $this->belongsTo(Pizza::class);
     }
 }

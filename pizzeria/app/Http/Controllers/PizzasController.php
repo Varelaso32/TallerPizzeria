@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pizza;
 use App\Models\PizzaSize;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,8 @@ class PizzasController extends Controller
      */
     public function create()
     {
-        return view('pizzas.create');
+        $ingredients = Ingredient::all(); // Obtener todos los ingredientes
+        return view('pizzas.create', compact('ingredients'));
     }
 
     /**
@@ -68,6 +70,7 @@ class PizzasController extends Controller
      */
     public function show(string $id)
     {
+        $pizza = Pizza::with(['sizes', 'ingredients'])->findOrFail($id);
         return view('pizzas.show', compact('pizza'));
     }
 
@@ -79,6 +82,7 @@ class PizzasController extends Controller
      */
     public function edit(string $id)
     {
+        $pizza = Pizza::with('sizes')->findOrFail($id);
         return view('pizzas.edit', compact('pizza'));
     }
 
@@ -87,16 +91,20 @@ class PizzasController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $pizza = Pizza::findOrFail($id);
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'sizes' => 'required|array',
             'sizes.*.id' => 'sometimes|exists:pizza_size,id',
             'sizes.*.size' => 'required|in:pequeña,mediana,grande',
-            'sizes.*.price' => 'required|numeric|min:0'
+            'sizes.*.price' => 'required|numeric|min:0',
+            'ingredients' => 'sometimes|array'
         ]);
-
+    
         $pizza->update($request->only('name'));
-
+    
+        // Actualizar tamaños
         foreach ($request->sizes as $sizeData) {
             if (isset($sizeData['id'])) {
                 $pizza->sizes()->find($sizeData['id'])->update($sizeData);
@@ -104,7 +112,18 @@ class PizzasController extends Controller
                 $pizza->sizes()->create($sizeData);
             }
         }
-
+    
+        // Sincronizar ingredientes
+        if ($request->has('ingredients')) {
+            $ingredientsData = [];
+            foreach ($request->ingredients as $ingredientId => $data) {
+                if (isset($data['active']) && $data['active'] == 1) {
+                    $ingredientsData[$ingredientId] = ['quantity' => $data['quantity'] ?? 0];
+                }
+            }
+            $pizza->ingredients()->sync($ingredientsData);
+        }
+    
         return redirect()->route('pizzas.index')->with('success', 'Pizza actualizada correctamente');
     }
 
@@ -116,8 +135,11 @@ class PizzasController extends Controller
      */
     public function destroy(string $id)
     {
+        $pizza = Pizza::findOrFail($id);
         $pizza->sizes()->delete();
+        $pizza->ingredients()->detach();
         $pizza->delete();
+        
         return redirect()->route('pizzas.index')->with('success', 'Pizza eliminada correctamente');
     }
 }

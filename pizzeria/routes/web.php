@@ -3,52 +3,79 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PizzasController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\PizzaSizeController;
 use Illuminate\Support\Facades\Route;
 
+// Rutas públicas
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Rutas autenticadas
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Perfil de usuario
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
+
+    // Gestión de Usuarios (protegido por auth)
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UsersController::class, 'index'])->name('users.index');
+        Route::get('/create', [UsersController::class, 'create'])->name('users.create');
+        Route::post('/', [UsersController::class, 'store'])->name('users.store');
+        Route::get('/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
+        Route::put('/{user}', [UsersController::class, 'update'])->name('users.update');
+        Route::delete('/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+    });
+
+    // Gestión de Pizzas (protegido por auth)
+    Route::prefix('pizzas')->group(function () {
+        Route::get('/', [PizzasController::class, 'index'])->name('pizzas.index');
+        Route::get('/create', [PizzasController::class, 'create'])->name('pizzas.create');
+        Route::post('/', [PizzasController::class, 'store'])->name('pizzas.store');
+        Route::get('/{pizza}', [PizzasController::class, 'show'])->name('pizzas.show');
+        Route::get('/{pizza}/edit', [PizzasController::class, 'edit'])->name('pizzas.edit');
+        Route::put('/{pizza}', [PizzasController::class, 'update'])->name('pizzas.update');
+        Route::delete('/{pizza}', [PizzasController::class, 'destroy'])->name('pizzas.destroy');
+    });
+
+    // Gestión de Ingredientes (protegido por auth)
+    Route::prefix('ingredient')->group(function () {
+        Route::get('/', [IngredientController::class, 'index'])->name('ingredient.index');
+        Route::get('/create', [IngredientController::class, 'create'])->name('ingredient.create');
+        Route::post('/', [IngredientController::class, 'store'])->name('ingredient.store');
+        Route::get('/{ingredient}/edit', [IngredientController::class, 'edit'])->name('ingredient.edit');
+        Route::put('/{ingredient}', [IngredientController::class, 'update'])->name('ingredient.update');
+        Route::delete('/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
+    });
+
+    Route::get('pizza-size', [PizzaSizeController::class, 'index'])->name('pizza-size.index'); // Recuperar lista
+Route::get('pizza-size/create', [PizzaSizeController::class, 'create'])->name('pizza-size.create'); // Crear - formulario
+Route::post('pizza-size', [PizzaSizeController::class, 'store'])->name('pizza-size.store'); // Crear - guardar
+
+Route::get('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'show'])->name('pizza-size.show'); // Recuperar individual
+Route::get('pizza-size/{pizzaSize}/edit', [PizzaSizeController::class, 'edit'])->name('pizza-size.edit'); // Editar - formulario
+Route::put('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'update'])->name('pizza-size.update'); // Actualizar - guardar cambios
+
+Route::delete('pizza-size/{pizzaSize}', [PizzaSizeController::class, 'destroy'])->name('pizza-size.destroy'); // Eliminar
 });
 
+
+ // Pizzas
+ Route::resource('pizzas', PizzasController::class);
+    
+ // Ingredientes
+ Route::resource('ingredient', IngredientController::class)->except(['show']);
+ 
+ // Tamaños de pizza
+ Route::resource('pizza-size', PizzaSizeController::class)->except(['show']);
+// Rutas de autenticación
 require __DIR__.'/auth.php';
-
-// Rutas para Usuarios
-Route::get('/users', [UsersController::class, 'index'])->name('users.index');
-Route::post('/users', [UsersController::class, 'store'])->name('users.store');
-Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
-Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
-Route::put('/users/{user}', [UsersController::class, 'update'])->name('users.update');
-Route::get('/users/{user}/edit', [UsersController::class, 'edit'])->name('users.edit');
-
-// Rutas para Pizzas
-Route::get('/pizzas', [PizzasController::class, 'index'])->name('pizzas.index');
-Route::post('/pizzas', [PizzasController::class, 'store'])->name('pizzas.store');
-Route::get('/pizzas/create', [PizzasController::class, 'create'])->name('pizzas.create');
-Route::delete('/pizzas/{pizza}', [PizzasController::class, 'destroy'])->name('pizzas.destroy');
-Route::put('/pizzas/{pizza}', [PizzasController::class, 'update'])->name('pizzas.update');
-Route::get('/pizzas/{pizza}/edit', [PizzasController::class, 'edit'])->name('pizzas.edit');
-
-//rutas para ingresientes
-Route::get('/ingredients', [IngredientsController::class, 'index'])->name('ingredients.index');
-Route::post('/ingredients', [IngredientsController::class, 'store'])->name('ingredients.store');
-Route::get('/ingredients/create', [IngredientsController::class, 'create'])->name('ingredients.create');
-Route::delete('/ingredients/{ingredient}', [IngredientsController::class, 'destroy'])->name('ingredients.destroy');
-Route::put('/ingredients/{ingredient}', [IngredientsController::class, 'update'])->name('ingredients.update');
-Route::get('/ingredients/{ingredient}/edit', [IngredientsController::class, 'edit'])->name('ingredients.edit');
-
-//ruta para pizas_Sizes
-Route::get('/pizzas_sizes', [PizzaSizeController::class, 'index'])->name('pizzas_sizes.index');
-Route::post('/pizzas_sizes', [PizzaSizeController::class, 'store'])->name('pizzas_sizes.store');
-Route::get('/pizzas_sizes/create', [PizzaSizeController::class, 'create'])->name('pizzas_sizes.create');
-Route::delete('/pizzas_sizes/{pizza_size}', [PizzaSizeController::class, 'destroy'])->name('pizzas_sizes.destroy');
-Route::put('/pizzas_sizes/{pizza_size}', [PizzaSizeController::class, 'update'])->name('pizzas_sizes.update');
-Route::get('/pizzas_sizes/{pizza_size}/edit', [PizzaSizeController::class, 'edit'])->name('pizzas_sizes.edit');
