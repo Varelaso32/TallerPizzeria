@@ -60,7 +60,7 @@ class OrderController extends Controller
             ->where('employees.position', 'mensajero')
             ->get();
 
-        return view('orders.create', [
+        return view('orders.new', [
             'clients' => $clients,
             'branches' => $branches,
             'delivery_persons' => $delivery_persons
