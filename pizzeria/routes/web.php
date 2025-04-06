@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PizzaRawMaterialController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
@@ -73,7 +74,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pizza_ingredient/{pizza_ingredient}', [PizzaIngredientController::class, 'destroy'])->name('pizza_ingredient.destroy');
     Route::put('/pizza_ingredient/{pizza_ingredient}', [PizzaIngredientController::class, 'update'])->name('pizza_ingredient.update');
     Route::get('/pizza_ingredient/{pizza_ingredient}/edit', [PizzaIngredientController::class, 'edit'])->name('pizza_ingredient.edit');
-
+    
+    // Rutas para Pizza raw materials
+    Route::get('/pizza_raw_material', [PizzaRawMaterialController::class, 'index'])->name('pizza_raw_material.index');
+    Route::post('/pizza_raw_material', [PizzaRawMaterialController::class, 'store'])->name('pizza_raw_material.store');
+    Route::get('/pizza_raw_material/create', [PizzaRawMaterialController::class, 'create'])->name('pizza_raw_material.create');
+    Route::delete('/pizza_raw_material/{pizza_raw_material}', [PizzaRawMaterialController::class, 'destroy'])->name('pizza_raw_material.destroy');
+    Route::put('/pizza_raw_material/{pizza_raw_material}', [PizzaRawMaterialController::class, 'update'])->name('pizza_raw_material.update');
+    Route::get('/pizza_raw_material/{pizza_raw_material}/edit', [PizzaRawMaterialController::class, 'edit'])->name('pizza_raw_material.edit');
 
     // Rutas para Compras
     Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases.index');
@@ -84,12 +92,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/purchases/{purchase}/edit', [PurchaseController::class, 'edit'])->name('purchases.edit');
 
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
-    
+
 });
 
 
-require __DIR__.'/auth.php';
-
-
-
-
+require __DIR__ . '/auth.php';

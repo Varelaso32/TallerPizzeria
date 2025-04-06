@@ -1,3 +1,6 @@
+<head>
+    <link rel="icon" href="{{ asset('img/pizza-planet.png') }}" type="image/png">
+</head>
 <x-guest-layout>
     <form method="POST" action="{{ route('register') }}" class="space-y-6">
         @csrf
