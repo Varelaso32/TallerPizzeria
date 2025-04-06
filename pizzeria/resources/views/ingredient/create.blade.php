@@ -19,14 +19,14 @@
     </nav>
 
 
-    <div class="container">
+    <div class="container bg-white bg-opacity-50 p-4 rounded shadow">
     <h1>Agregar Ingrediente a Pizza</h1>
 
     <form action="{{ route('ingredient.store') }}" method="POST">
         @csrf
 
         <div class="mb-3">
-            <label for="pizza_id" class="form-label">Pizza</label>
+            <label for="pizza_id" class="form-label fw-bold fs-5">Pizza</label>
             <select name="pizza_id" class="form-control">
                 @foreach($pizzas as $pizza)
                     <option value="{{ $pizza->id }}">{{ $pizza->name }}</option>
@@ -35,12 +35,12 @@
         </div>
 
         <div class="mb-3">
-            <label for="ingredient_name" class="form-label">Nombre del Ingrediente</label>
+            <label for="ingredient_name" class="form-label fw-bold fs-5">Nombre del Ingrediente</label>
             <input type="text" name="ingredient_name" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label for="quantity" class="form-label">Cantidad</label>
+            <label for="quantity" class="form-label fw-bold fs-5">Cantidad</label>
             <input type="number" step="0.01" name="quantity" class="form-control" required>
         </div>
 

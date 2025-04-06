@@ -22,32 +22,37 @@
         </div>
     </nav>
 
-    <h1>Crear Tamaño de Pizza</h1>
+    <div class="container bg-white bg-opacity-75 p-4 rounded-3 shadow bg-blur">
 
-<form action="{{ route('pizza-size.store') }}" method="POST">
-    @csrf
+        <h1>Crear Tamaño de Pizza</h1>
 
-    <label for="pizza_id">Pizza:</label>
-    <select name="pizza_id" id="pizza_id" required>
-        <option value="">Seleccione una pizza</option>
-        @foreach($pizzas as $pizza)
-            <option value="{{ $pizza->id }}">{{ $pizza->name }}</option>
-        @endforeach
-    </select><br><br>
+        <form action="{{ route('pizza-size.store') }}" method="POST">
+            @csrf
 
-    <label for="size">Tamaño:</label>
-    <select name="size" id="size" required>
-        <option value="">Seleccione tamaño</option>
-        <option value="pequeña">Pequeña</option>
-        <option value="mediana">Mediana</option>
-        <option value="grande">Grande</option>
-    </select><br><br>
+            <label for="pizza_id">Pizza:</label>
+                <select name="pizza_id" id="pizza_id" required>
+                <option value="">Seleccione una pizza</option>
+            @foreach($pizzas as $pizza)
+                <option value="{{ $pizza->id }}">{{ $pizza->name }}</option>
+            @endforeach
+                </select>
+                    <br>
+                    <br>
 
-    <label for="price">Precio:</label>
-    <input type="number" name="price" id="price" step="0.01" required><br><br>
+                <label for="size">Tamaño:</label>
+                    <select name="size" id="size" required>
+                        <option value="">Seleccione tamaño</option>
+                        <option value="pequeña">Pequeña</option>
+                        <option value="mediana">Mediana</option>
+                        <option value="grande">Grande</option>
+                </select><br><br>
 
-    <button type="submit">Guardar</button>
-</form>
+            <label for="price">Precio:</label>
+            <input type="number" name="price" id="price" step="0.01" required><br><br>
+
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
 
     
 </body>

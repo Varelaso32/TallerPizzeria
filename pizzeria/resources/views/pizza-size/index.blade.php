@@ -22,7 +22,7 @@
         </div>
     </nav>
 
-    <table border="1">
+    <table class="table table-bordered bg-white" style="box-shadow: 0 0 10px rgba(0,0,0,0.1);">
         <thead>
             <tr>
                 <th>ID</th>

@@ -35,6 +35,7 @@
     <!-- Contenido principal -->
 
 
+
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show">
                 {{ session('success') }}
@@ -83,7 +84,7 @@
         <!-- Lista de Pizzas -->
         <div class="list-section mt-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="text-center mb-0">Lista de Pizzas</h2>
+                <h2 class="text-center mb-10">....</h2>
                 <a href="{{ route('pizzas.create') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Nueva Pizza
                 </a>
