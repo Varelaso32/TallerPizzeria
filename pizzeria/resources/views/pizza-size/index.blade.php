@@ -16,8 +16,8 @@
   
     <nav class="navbar bg-dark">
         <div class="container-fluid justify-content-start">
-                <a href="{{ route('pizzas.create') }}" class="btn btn-success me-2">Pizzas</a>
-                <a href="{{ route('pizza-size.create') }}" class="btn btn-primary me-2">Crear</a>
+                <a href="{{ route('pizzas.index') }}" class="btn btn-success me-2">Pizzas</a>
+                <a href="{{ route('pizza-size.create') }}" class="btn btn-primary me-2">New Size</a>
                 <a href="{{ route('ingredient.index') }}" class="btn btn-warning text-white me-2">Ingredientes</a>
         </div>
     </nav>

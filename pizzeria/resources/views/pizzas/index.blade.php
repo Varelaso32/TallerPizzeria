@@ -90,7 +90,7 @@
                     <div class="card-body">
                         <p class="card-text">Descripción de la pizza {{ $pizza->name }} con los mejores ingredientes.</p>
                         <div class="mt-auto">
-                            @foreach($pizza->sizes as $size)
+                            @foreach($pizzas->sizes as $size)
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge bg-secondary">{{ ucfirst($size->size) }}</span>
                                 <span class="pizza-price">${{ number_format($size->price, 2) }}</span>

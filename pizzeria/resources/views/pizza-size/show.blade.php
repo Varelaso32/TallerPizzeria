@@ -22,15 +22,15 @@
         </div>
     </nav><h1>Detalles del Tamaño de Pizza</h1>
 
-<p><strong>ID:</strong> {{ $pizzaSize->id }}</p>
-<p><strong>Pizza:</strong> {{ $pizzaSize->pizza->name }}</p>
-<p><strong>Tamaño:</strong> {{ $pizzaSize->size }}</p>
-<p><strong>Precio:</strong> ${{ $pizzaSize->price }}</p>
-<p><strong>Creado:</strong> {{ $pizzaSize->created_at }}</p>
-<p><strong>Actualizado:</strong> {{ $pizzaSize->updated_at }}</p>
+        <p><strong>ID:</strong> {{ $pizzaSize->id }}</p>
+        <p><strong>Pizza:</strong> {{ $pizzaSize->pizza->name }}</p>
+        <p><strong>Tamaño:</strong> {{ $pizzaSize->size }}</p>
+        <p><strong>Precio:</strong> ${{ $pizzaSize->price }}</p>
+        <p><strong>Creado:</strong> {{ $pizzaSize->created_at }}</p>
+        <p><strong>Actualizado:</strong> {{ $pizzaSize->updated_at }}</p>
 
-<a href="{{ route('pizza-size.edit', $pizzaSize->id) }}">Editar</a> |
-<a href="{{ route('pizza-size.index') }}">Volver al listado</a>
+        <a href="{{ route('pizza-size.edit', $pizzaSize->id) }}">Editar</a> |
+        <a href="{{ route('pizza-size.index') }}">Volver al listado</a>
 
     
 </body>
