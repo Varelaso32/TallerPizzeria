@@ -34,13 +34,13 @@ class PizzaSizeController extends Controller
 
     public function show(PizzaSize $pizzaSize)
     {
-        return view('pizza_size.show', compact('pizzaSize'));
+        return view('pizza-size.show', compact('pizzaSize'));
     }
 
     public function edit(PizzaSize $pizzaSize)
     {
         $pizzas = Pizza::all();
-        return view('pizza_size.edit', compact('pizzaSize', 'pizzas'));
+        return view('pizza-size.edit', compact('pizzaSize', 'pizzas'));
     }
 
     public function update(Request $request, PizzaSize $pizzaSize)

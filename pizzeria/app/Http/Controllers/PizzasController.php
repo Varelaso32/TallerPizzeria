@@ -82,8 +82,8 @@ class PizzasController extends Controller
      */
     public function edit(string $id)
     {
-        $pizza = Pizza::with('sizes')->findOrFail($id);
-        return view('pizzas.edit', compact('pizza'));
+        $pizzas = Pizza::with('sizes')->get(); // Importante: with('sizes')
+    return view('pizzas.index', compact('pizzas'));
     }
 
     /**
