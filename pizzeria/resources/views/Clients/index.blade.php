@@ -36,6 +36,8 @@
                                 <th>Rol</th>
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
+                                <th>Creado</th>
+                                <th>Actualizado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -48,6 +50,8 @@
                                     <td>{{ $client->user_role }}</td>
                                     <td>{{ $client->address ?? 'No definido' }}</td>
                                     <td>{{ $client->phone ?? 'No definido' }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($client->created_at)->format('d/m/Y H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($client->updated_at)->format('d/m/Y H:i') }}</td>
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
                                             <a href="{{ route('clients.edit', ['client' => $client->id]) }}"
