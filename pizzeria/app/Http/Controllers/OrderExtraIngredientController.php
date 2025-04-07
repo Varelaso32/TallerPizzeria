@@ -87,7 +87,25 @@ class OrderExtraIngredientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $orderExtraIngredient = OrderExtraIngredient::find($id);
+
+        // Trae todas las ordenes
+        $orders = DB::table('orders')
+            ->select('id', 'users.name as client_name')
+            ->join('clients', 'orders.client_id', '=', 'clients.id')
+            ->join('users', 'clients.user_id', '=', 'users.id')
+            ->get();
+
+        // Trae todos los ingredientes extra
+        $extraIngredients = DB::table('extra_ingredients')
+            ->select('id', 'name')
+            ->get();
+
+        return view('order_extra_ingredients.edit', [
+            'order_extra_ingredient' => $orderExtraIngredient,
+            'extra_ingredients' => $extraIngredients,
+            'orders' => $orders
+        ]);
     }
 
     /**
