@@ -49,6 +49,24 @@
                     <h3 class="text-lg font-bold text-red-600 mb-2">🥣 Materia Prima Para Pizza</h3>
                     <p class="text-black text-sm">Administra las materias primas asociadas a cada pizza.</p>
                 </a>
+
+                <!-- Tarjeta: Compras -->
+                <a href="{{ route('purchases.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🧾 Compras</h3>
+                    <p class="text-black text-sm">Registra y consulta las compras de insumos.</p>
+                </a>
+
+                <!-- Tarjeta: Órdenes -->
+                <a href="{{ route('orders.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">📦 Órdenes</h3>
+                    <p class="text-black text-sm">Gestiona los pedidos realizados por clientes.</p>
+                </a>
+
+                <!-- Tarjeta: Ingredientes Extra -->
+                <a href="{{ route('extra_ingredients.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                    <h3 class="text-lg font-bold text-red-600 mb-2">🌶 Ingredientes Extra</h3>
+                    <p class="text-black text-sm">Administra ingredientes adicionales disponibles.</p>
+                </a>
             </div>
         </div>
     </div>
