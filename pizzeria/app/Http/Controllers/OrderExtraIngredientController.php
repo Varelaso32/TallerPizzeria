@@ -113,7 +113,15 @@ class OrderExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $orderExtraIngredient = OrderExtraIngredient::find($id);
+        $orderExtraIngredient->order_id = $request->input('order_id');
+        $orderExtraIngredient->extra_ingredient_id = $request->input('extra_ingredient_id');
+        $orderExtraIngredient->quantity = $request->input('quantity');
+        $orderExtraIngredient->save();
+
+        return view('order_extra_ingredients.index', [
+            'order_extra_ingredients' => $this->getOrderExtraIngredients()
+        ]);
     }
 
     /**
