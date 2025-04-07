@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\OrderPizzaController;
 use App\Http\Controllers\PizzaRawMaterialController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
@@ -60,6 +60,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/suppliers/{supplier}', [SuppliersController::class, 'destroy'])->name('suppliers.destroy');
     Route::put('/suppliers/{supplier}', [SuppliersController::class, 'update'])->name('suppliers.update');
     Route::get('/suppliers/{supplier}/edit', [SuppliersController::class, 'edit'])->name('suppliers.edit');
+
+    // Rutas para Order_Pizza
+    Route::get('/order_pizza', [OrderPizzaController::class, 'index'])->name('order_pizza.index');
+    Route::post('/order_pizza', [OrderPizzaController::class, 'store'])->name('order_pizza.store');
+    Route::get('/order_pizza/create', [OrderPizzaController::class, 'create'])->name('order_pizza.create');
+    Route::delete('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'destroy'])->name('order_pizza.destroy');
+    Route::put('/order_pizza/{order_pizza}', [OrderPizzaController::class, 'update'])->name('order_pizza.update');
+    Route::get('/order_pizza/{order_pizza}/edit', [OrderPizzaController::class, 'edit'])->name('order_pizza.edit');
 
     // Rutas para Raw_materials
     Route::get('/raw_materials', [raw_materialsController::class, 'index'])->name('raw_materials.index');
