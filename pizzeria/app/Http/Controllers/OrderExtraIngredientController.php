@@ -42,7 +42,7 @@ class OrderExtraIngredientController extends Controller
     {
         // Trae todas las ordenes
         $orders = DB::table('orders')
-            ->select('id', 'users.name as client_name')
+            ->select('orders.id', 'users.name as client_name')
             ->join('clients', 'orders.client_id', '=', 'clients.id')
             ->join('users', 'clients.user_id', '=', 'users.id')
             ->get();
