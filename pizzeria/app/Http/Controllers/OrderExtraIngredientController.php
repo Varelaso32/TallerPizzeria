@@ -52,7 +52,7 @@ class OrderExtraIngredientController extends Controller
             ->select('id', 'name')
             ->get();
 
-        return view('order_extra_ingredients.create', [
+        return view('order_extra_ingredients.new', [
             'extra_ingredients' => $extraIngredients,
             'orders' => $orders
         ]);
