@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderExtraIngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
@@ -81,6 +82,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('orders.update');
     Route::get('/orders/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+
+    // Rutas para Orders Extra Ingredient
+    Route::get('/orders_extra_ingredient', [OrderExtraIngredientController::class, 'index'])->name('orders_extra_ingredient.index');
+    Route::post('/orders_extra_ingredient', [OrderExtraIngredientController::class, 'store'])->name('orders_extra_ingredient.store');
+    Route::get('/orders_extra_ingredient/create', [OrderExtraIngredientController::class, 'create'])->name('orders_extra_ingredient.create');
+    Route::delete('/orders_extra_ingredient/{order_extra_ingredient}', [OrderExtraIngredientController::class, 'destroy'])->name('orders_extra_ingredient.destroy');
+    Route::put('/orders_extra_ingredient/{order_extra_ingredient}', [OrderExtraIngredientController::class, 'update'])->name('orders_extra_ingredient.update');
+    Route::get('/orders_extra_ingredient/{order_extra_ingredient}/edit', [OrderExtraIngredientController::class, 'edit'])->name('orders_extra_ingredient.edit');
 
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
 
