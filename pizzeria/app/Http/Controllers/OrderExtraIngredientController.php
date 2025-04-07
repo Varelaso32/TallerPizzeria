@@ -12,14 +12,14 @@ class OrderExtraIngredientController extends Controller
     {
         $orderExtraIngredients = DB::table('order_extra_ingredient')
             ->select([
-                'order_extra_ingredients.*',
+                'order_extra_ingredient.*',
                 'users.name as client_name',
                 'extra_ingredients.name as extra_ingredient_name'
             ])
-            ->join('orders', 'order_extra_ingredients.order_id', '=', 'orders.id')
+            ->join('orders', 'order_extra_ingredient.order_id', '=', 'orders.id')
             ->join('clients', 'orders.client_id', '=', 'clients.id')
             ->join('users', 'clients.user_id', '=', 'users.id')
-            ->join('extra_ingredients', 'order_extra_ingredients.extra_ingredient_id', '=', 'extra_ingredients.id')
+            ->join('extra_ingredients', 'order_extra_ingredient.extra_ingredient_id', '=', 'extra_ingredients.id')
             ->get();
         return $orderExtraIngredients;
     }
