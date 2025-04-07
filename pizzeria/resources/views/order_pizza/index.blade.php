@@ -31,7 +31,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>ID Orden</th>
+                                <th>Orden</th>
                                 <th>Tamaño de Pizza</th>
                                 <th>Precio Unitario</th>
                                 <th>Cantidad</th>
