@@ -36,40 +36,44 @@
                                 <th>Número de Identificación</th>
                                 <th>Salario</th>
                                 <th>Fecha de Contratación</th>
+                                <th>Creado</th>
+                                <th>Actualizado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($employees as $employee)
-                                <tr>
-                                    <td>{{ $employee->id }}</td>
-                                    <td>{{ $employee->user_name }}</td>
-                                    <td>{{ ucfirst($employee->position) }}</td>
-                                    <td>{{ $employee->identification_number }}</td>
-                                    <td>${{ number_format($employee->salary, 2) }}</td>
-                                    <td>{{ $employee->hire_date }}</td>
-                                    <td class="text-center">
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
-                                                class="btn btn-outline-dark btn-icon" title="Editar">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
+                            <tr>
+                                <td>{{ $employee->id }}</td>
+                                <td>{{ $employee->user_name }}</td>
+                                <td>{{ ucfirst($employee->position) }}</td>
+                                <td>{{ $employee->identification_number }}</td>
+                                <td>${{ number_format($employee->salary, 2) }}</td>
+                                <td>{{ $employee->hire_date }}</td>
+                                <td>{{ \Carbon\Carbon::parse($employee->created_at)->format('d/m/Y H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($employee->updated_at)->format('d/m/Y H:i') }}</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('employees.edit', ['employee' => $employee->id]) }}"
+                                            class="btn btn-outline-dark btn-icon" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
 
-                                            <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}"
-                                                method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este empleado?');">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-icon" title="Eliminar">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        <form action="{{ route('employees.destroy', ['employee' => $employee->id]) }}"
+                                            method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este empleado?');">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-danger btn-icon" title="Eliminar">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="7" class="text-center text-muted">No hay empleados registrados.</td>
-                                </tr>
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">No hay empleados registrados.</td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
