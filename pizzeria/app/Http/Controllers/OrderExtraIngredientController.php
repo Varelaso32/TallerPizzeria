@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\OrderExtraIngredient;
 
 class OrderExtraIngredientController extends Controller
 {
@@ -62,7 +63,15 @@ class OrderExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orderExtraIngredient = new OrderExtraIngredient();
+        $orderExtraIngredient->order_id = $request->input('order_id');
+        $orderExtraIngredient->extra_ingredient_id = $request->input('extra_ingredient_id');
+        $orderExtraIngredient->quantity = $request->input('quantity');
+        $orderExtraIngredient->save();
+
+        return view('order_extra_ingredients.index', [
+            'order_extra_ingredients' => $this->getOrderExtraIngredients()
+        ]);
     }
 
     /**
