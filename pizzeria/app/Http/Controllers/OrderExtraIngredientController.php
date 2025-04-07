@@ -129,6 +129,11 @@ class OrderExtraIngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $orderExtraIngredient = OrderExtraIngredient::find($id);
+        $orderExtraIngredient->delete();
+
+        return view('order_extra_ingredients.index', [
+            'order_extra_ingredients' => $this->getOrderExtraIngredients()
+        ]);
     }
 }
