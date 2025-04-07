@@ -57,7 +57,7 @@
                             @foreach($pizza->sizes as $size)
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <span class="badge bg-secondary">{{ ucfirst($size->size) }}</span>
-                                <span class="pizza-price">${{ number_format($size->price, 2) }}</span>
+                                <span class="pizza-price">${{ number_format($size->price) }}</span>
                             </div>
                             @endforeach
                         </div>
@@ -84,7 +84,7 @@
         <!-- Lista de Pizzas -->
         <div class="list-section mt-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="text-center mb-10">....</h2>
+                <h2 class="text-center mb-10">LISTADO DE PIZZAS</h2>
                 <a href="{{ route('pizzas.create') }}" class="btn btn-success">
                     <i class="bi bi-plus-circle"></i> Nueva Pizza
                 </a>
@@ -96,6 +96,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Tamaños y Precios</th>
+                            <th class="text-center">Acciones</th>
                             
                         </tr>
                     </thead>
@@ -121,9 +122,7 @@
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
-                                    <a href="{{ route('pizzas.show', $pizza->id) }}" class="btn btn-sm btn-info">
-                                        <i class="bi bi-eye"></i>
-                                    </a>
+                                    
                                 </div>
                             </td>
                         </tr>
