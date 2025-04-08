@@ -14,7 +14,7 @@
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="text-primary">Lista de sucursales</h1>
-            <a href="{{ route('orders.create') }}" class="btn btn-success">Agregar nueva sucursal</a>
+            <a href="{{ route('branches.create') }}" class="btn btn-success">Agregar nueva sucursal</a>
         </div>
 
         <div class="table-responsive shadow-sm rounded">
