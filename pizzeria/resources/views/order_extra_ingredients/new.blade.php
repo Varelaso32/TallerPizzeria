@@ -15,7 +15,7 @@
         <div class="card shadow-sm rounded p-4">
             <h1 class="text-primary mb-4">Agregar Orden</h1>
 
-            <form method="POST" action="{{ route('orders.store') }}">
+            <form method="POST" action="{{ route('order_extra_ingredients.store') }}">
                 @csrf
 
                 <div class="mb-3">
@@ -29,8 +29,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="branch_id" class="form-label">Ingrediente extra</label>
-                    <select class="form-select" id="branch_id" name="branch_id" required>
+                    <label for="extra_ingredient_id" class="form-label">Ingrediente extra</label>
+                    <select class="form-select" id="extra_ingredient_id" name="extra_ingredient_id" required>
                         <option selected disabled value="">Seleccione un ingrediente extra...</option>
                         @foreach ($extra_ingredients as $extraIngredient)
                         <option value="{{ $extraIngredient->id }}">{{ $extraIngredient->name }}</option>
@@ -45,7 +45,7 @@
 
                 <div class="d-flex justify-content-between mt-4">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a href="{{ route('orders.index') }}" class="btn btn-warning">Cancelar</a>
+                    <a href="{{ route('order_extra_ingredients.index') }}" class="btn btn-warning">Cancelar</a>
                 </div>
             </form>
         </div>
