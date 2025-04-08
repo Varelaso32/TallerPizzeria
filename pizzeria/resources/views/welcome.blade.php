@@ -10,11 +10,14 @@
 
     <!-- Tu estilo personalizado -->
     <link rel="stylesheet" href="{{ asset('css/welcomeStyle.css') }}">
+
+    <link rel="icon" href="{{ asset('img/pizza-planet.png') }}" type="image/png">
+
 </head>
 <body class="d-flex align-items-center" style="height: 100vh;">
 
     <div class="container text-center">
-        <h1 class="display-4 mb-4" style="color: #c1121f;">Bienvenido a <strong>PizzaApp</strong> 🍕</h1>
+        <h1 class="display-4 mb-4" style="color: #c1121f;">Bienvenido a <strong>Pizza Planet</strong> 🍕</h1>
         <p class="lead mb-5 text-dark">Administra usuarios, empleados, proveedores y más desde un solo lugar.</p>
         <div class="d-flex justify-content-center gap-3">
             <a href="{{ route('login') }}" class="btn btn-primary btn-lg px-4">Iniciar sesión</a>
