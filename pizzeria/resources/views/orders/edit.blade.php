@@ -50,7 +50,9 @@
                 <select class="form-select" id="status" name="status" required>
                     <option selected disabled value="">Seleccione un estado...</option>
                     <option value="pendiente" {{ $order->status == 'pendiente' ? 'selected': ''}}>Pendiente</option>
-                    <option value="completado" {{ $order->status == 'completado' ? 'selected': ''}}>Completado</option>
+                    <option value="en_preparacion" {{ $order->status == 'en_preparacion' ? 'selected': ''}}>En preparación</option>
+                    <option value="listo" {{ $order->status == 'listo' ? 'selected': ''}}>Listo</option>
+                    <option value="entregado" {{ $order->status == 'entregado' ? 'selected': ''}}>Entregado</option>
                 </select>
             </div>
 
