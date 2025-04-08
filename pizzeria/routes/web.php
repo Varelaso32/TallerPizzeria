@@ -148,7 +148,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/ingredient/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
 
 
-    // Aquí agregan el resto de rutas para que estén protegidas por autenticación
+    // Aquí agregan el resto de rutas para que estén protegidas por autenticación....
 
 });
 
