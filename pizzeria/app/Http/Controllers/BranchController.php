@@ -24,7 +24,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        //
+        return view('branches.create');
     }
 
     /**
@@ -32,7 +32,14 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $branch = new Branch();
+        $branch->name = $request->input('name');
+        $branch->address = $request->input('address');
+        $branch->save();
+
+        return view('branches.index', [
+            'branches' => Branch::all()
+        ]);
     }
 
     /**
