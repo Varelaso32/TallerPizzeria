@@ -26,6 +26,7 @@
                         <th scope="col">Cliente</th>
                         <th scope="col">Ingrediente</th>
                         <th scope="col">Cantidad</th>
+                        <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
