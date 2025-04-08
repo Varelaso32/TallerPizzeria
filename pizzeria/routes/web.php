@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\OrderPizzaController;
 use App\Http\Controllers\PizzaRawMaterialController;
+use App\Http\Controllers\OrderExtraIngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
@@ -147,6 +149,22 @@ Route::middleware('auth')->group(function () {
     Route::put('/ingredient/{ingredient}', [IngredientController::class, 'update'])->name('ingredient.update');
     Route::delete('/ingredient/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
 
+
+    // Rutas para Orders Extra Ingredient
+    Route::get('/order_extra_ingredients', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredients.index');
+    Route::post('/order_extra_ingredients', [OrderExtraIngredientController::class, 'store'])->name('order_extra_ingredients.store');
+    Route::get('/order_extra_ingredients/create', [OrderExtraIngredientController::class, 'create'])->name('order_extra_ingredients.create');
+    Route::delete('/order_extra_ingredients/{order_extra_ingredient}', [OrderExtraIngredientController::class, 'destroy'])->name('order_extra_ingredients.destroy');
+    Route::put('/order_extra_ingredients/{order_extra_ingredient}', [OrderExtraIngredientController::class, 'update'])->name('order_extra_ingredients.update');
+    Route::get('/order_extra_ingredients/{order_extra_ingredient}/edit', [OrderExtraIngredientController::class, 'edit'])->name('order_extra_ingredients.edit');
+
+    // Rutas para Orders Extra Ingredient
+    Route::get('/branches', [BranchController::class, 'index'])->name('branches.index');
+    Route::post('/branches', [BranchController::class, 'store'])->name('branches.store');
+    Route::get('/branches/create', [BranchController::class, 'create'])->name('branches.create');
+    Route::delete('/branches/{branch}', [BranchController::class, 'destroy'])->name('branches.destroy');
+    Route::put('/branches/{branch}', [BranchController::class, 'update'])->name('branches.update');
+    Route::get('/branches/{branch}/edit', [BranchController::class, 'edit'])->name('branches.edit');
 
     // Aquí agregan el resto de rutas para que estén protegidas por autenticación
 
