@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Orden</title>
+    <title>Editar Órdenes con Ingredientes Extra</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -16,7 +16,7 @@
             <h1 class="text-primary">Editar Órdenes con Ingredientes Extra</h1>
         </div>
 
-        <form method="POST" action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order->id]) }}">
+        <form method="POST" action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order_extra_ingredient->id]) }}">
             @method('put')
             @csrf
 
