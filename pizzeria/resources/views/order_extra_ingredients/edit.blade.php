@@ -16,7 +16,8 @@
             <h1 class="text-primary">Editar Órdenes con Ingredientes Extra</h1>
         </div>
 
-        <form method="POST" action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order_extra_ingredient->id]) }}">
+        <form method="POST"
+            action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order_extra_ingredient->id]) }}">
             @method('put')
             @csrf
 
@@ -25,7 +26,8 @@
                 <select class="form-select" id="order_id" name="order_id" required>
                     <option selected disabled value="">Seleccione un orden...</option>
                     @foreach ($orders as $order)
-                        <option value="{{ $order->id }}">{{ $order->id }} - {{ $order->client_name }}</option>
+                        <option value="{{ $order->id }}" {{ $order_extra_ingredient->order_id == $order->id ? 'selected' : '' }}>
+                            {{ $order->id }} - {{ $order->client_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -35,7 +37,7 @@
                 <select class="form-select" id="extra_ingredient_id" name="extra_ingredient_id" required>
                     <option selected disabled value="">Seleccione un ingrediente extra...</option>
                     @foreach ($extra_ingredients as $extraIngredient)
-                        <option value="{{ $extraIngredient->id }}">{{ $extraIngredient->name }}</option>
+                        <option value="{{ $extraIngredient->id }}" {{ $order_extra_ingredient->extra_ingredient_id == $extraIngredient->id ? 'selected' : '' }}>{{ $extraIngredient->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -43,7 +45,7 @@
             <div class="mb-3">
                 <label for="quantity" class="form-label">Cantidad</label>
                 <input type="number" min="1" class="form-control" id="quantity" name="quantity" required
-                    placeholder="Ingrese la cantidad">
+                    placeholder="Ingrese la cantidad" value="{{ $order_extra_ingredient->quantity }}">
             </div>
 
             <div class="mt-3">
