@@ -9,12 +9,10 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color: #ffffff; color: #000000;">
     <div class="container mt-5">
-
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="text-primary">Editar Órdenes con Ingredientes Extra</h1>
-        </div>
+        <div class="card shadow-sm rounded p-4">
+            <h1 class="text-danger mb-4">Editar Orden con Ingredientes Extra</h1>
 
         <form method="POST"
             action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order_extra_ingredient->id]) }}">
@@ -48,11 +46,12 @@
                     placeholder="Ingrese la cantidad" value="{{ $order_extra_ingredient->quantity }}">
             </div>
 
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary">Actualizar</button>
-                <a href="{{ route('order_extra_ingredients.index') }}" class="btn btn-warning">Cancelar</a>
-            </div>
-        </form>
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-danger">Actualizar</button>
+                    <a href="{{ route('order_extra_ingredients.index') }}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

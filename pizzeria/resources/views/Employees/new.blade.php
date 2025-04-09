@@ -46,7 +46,7 @@
 
                 <div class="mb-3">
                     <label for="salary" class="form-label">Salario</label>
-                    <input type="number" step="0.01" class="form-control" id="salary" name="salary" required
+                    <input type="number" class="form-control" id="salary" name="salary" required
                         placeholder="Ingrese salario">
                 </div>
 
