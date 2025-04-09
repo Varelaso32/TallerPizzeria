@@ -37,6 +37,14 @@ class EmployesController extends Controller
     
     public function store(Request $request)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'position' => 'required|in:cajero,administrador,cocinero,mensajero',
+            'identification_number' => 'required|string|max:20',
+            'salary' => 'required|numeric|min:0.01|max:999999.99',
+            'hire_date' => 'required|date',
+        ]);
+
         $employee = new Employes();
 
         $employee->user_id = $request->user_id;
@@ -82,6 +90,14 @@ class EmployesController extends Controller
     
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'position' => 'required|in:cajero,administrador,cocinero,mensajero',
+            'identification_number' => 'required|string|max:20',
+            'salary' => 'required|numeric|min:0.01|max:999999.99',
+            'hire_date' => 'required|date',
+        ]);
+        
         $employee = Employes::find($id);
 
         $employee->user_id = $request->user_id;
