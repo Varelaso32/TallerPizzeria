@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,11 +9,10 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
-
+<body style="background-color: #ffffff; color: #000000;">
     <div class="container mt-5">
         <div class="card shadow-sm rounded p-4">
-            <h1 class="text-primary mb-4">Agregar Orden</h1>
+            <h1 class="text-danger mb-4">Agregar Orden</h1>
 
             <form method="POST" action="{{ route('orders.store') }}">
                 @csrf
@@ -22,8 +21,8 @@
                     <label for="client_id" class="form-label">Cliente</label>
                     <select class="form-select" id="client_id" name="client_id" required>
                         <option selected disabled value="">Seleccione un cliente...</option>
-                        @foreach ( $clients as $client )
-                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                        @foreach ($clients as $client)
+                            <option value="{{ $client->id }}">{{ $client->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -32,15 +31,16 @@
                     <label for="branch_id" class="form-label">Sucursal</label>
                     <select class="form-select" id="branch_id" name="branch_id" required>
                         <option selected disabled value="">Seleccione una sucursal...</option>
-                        @foreach ( $branches as $branch )
-                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                        @foreach ($branches as $branch)
+                            <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="total_price" class="form-label">Precio total</label>
-                    <input type="number" min="0" class="form-control" id="total_price" name="total_price" required placeholder="Ingrese el tipo de pizza">
+                    <input type="number" min="0" class="form-control" id="total_price" name="total_price" required
+                        placeholder="Ingrese el precio total">
                 </div>
 
                 <div class="mb-3">
@@ -48,7 +48,9 @@
                     <select class="form-select" id="status" name="status" required>
                         <option selected disabled value="">Seleccione un estado...</option>
                         <option value="pendiente">Pendiente</option>
-                        <option value="completado">Completado</option>
+                        <option value="en_preparacion">En preparación</option>
+                        <option value="listo">Listo</option>
+                        <option value="entregado">Entregado</option>
                     </select>
                 </div>
 
@@ -65,15 +67,15 @@
                     <label for="delivery_person_id" class="form-label">Domiciliario</label>
                     <select class="form-select" id="delivery_person_id" name="delivery_person_id">
                         <option selected disabled value="">Seleccione un domiciliario...</option>
-                        @foreach ( $delivery_persons as $delivery_person )
-                        <option value="{{ $delivery_person->id }}">{{ $delivery_person->name }}</option>
+                        @foreach ($delivery_persons as $delivery_person)
+                            <option value="{{ $delivery_person->id }}">{{ $delivery_person->name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    <a href="{{ route('orders.index') }}" class="btn btn-warning">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Guardar</button>
+                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>
