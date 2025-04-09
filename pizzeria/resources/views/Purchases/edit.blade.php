@@ -60,7 +60,7 @@
 
                 <div class="mb-3">
                     <label for="purchase_date" class="form-label">Fecha de Compra</label>
-                    <input type="date" class="form-control" id="purchase_date" name="purchase_date" required value="{{ $purchase->purchase_date }}">
+                    <input type="date" class="form-control" id="purchase_date" name="purchase_date" required value="{{ \Carbon\Carbon::parse($purchase->purchase_date)->format('Y-m-d') }}">
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
