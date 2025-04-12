@@ -16,9 +16,11 @@
     <!-- Navegación superior -->
     <nav class="navbar bg-dark">
         <div class="container-fluid justify-content-start">
+                <a href="{{ route('dashboard') }}" class="btn btn-info text-white me-2">◀️Return to DASHBOARD</a>
                 <a href="{{ route('pizzas.create') }}" class="btn btn-success me-2">Crear</a>
                 <a href="{{ route('pizza-size.index') }}" class="btn btn-primary me-2">Tamaños</a>
                 <a href="{{ route('ingredient.index') }}" class="btn btn-warning text-white me-2">Ingredientes</a>
+               
         </div>
     </nav>
 
