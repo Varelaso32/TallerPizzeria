@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Pizza</title>
+    <title>Agregar Ingrediente</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -13,17 +13,10 @@
 <body style="background-color: #ffffff; color: #000000;">
     <div class="container mt-5">
         <div class="card shadow-sm rounded p-4">
-            <h1 class="text-danger mb-4">Editar Pizza</h1>
+            <h1 class="text-danger mb-4">Agregar Ingrediente</h1>
 
-            <form method="POST" action="{{ route('pizzas.update', ['pizza' => $pizza->id]) }}">
-                @method('put')
+            <form method="POST" action="{{ route('ingredients.store') }}">
                 @csrf
-
-                <div class="mb-3">
-                    <label for="id" class="form-label">ID</label>
-                    <input type="text" class="form-control" id="id" disabled value="{{ $pizza->id }}">
-                    <div class="form-text text-dark">ID de la pizza</div>
-                </div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre</label>
@@ -31,8 +24,9 @@
                         class="form-control @error('name') is-invalid @enderror"
                         id="name"
                         name="name"
-                        value="{{ old('name', $pizza->name) }}"
-                        required>
+                        value="{{ old('name') }}"
+                        required
+                        placeholder="Ej. Jamón, Queso, Champiñones">
 
                     @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -40,8 +34,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-danger">Actualizar</button>
-                    <a href="{{ route('pizzas.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Guardar</button>
+                    <a href="{{ route('ingredients.index') }}" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

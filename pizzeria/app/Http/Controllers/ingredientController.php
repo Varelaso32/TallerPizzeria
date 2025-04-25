@@ -3,68 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
-use App\Models\Pizza;
-use App\Models\IngredientType; // o como se llame tu modelo de ingredientes reales
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IngredientController extends Controller
 {
     public function index()
     {
-        $ingredients = Ingredient::with(['pizza', 'ingredientDetail'])->get();
-        return view('ingredient.index', compact('ingredients'));
+        $ingredients = DB::table('ingredients')
+            ->select('id', 'name', 'created_at', 'updated_at')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('ingredients.index', ['ingredients' => $ingredients]);
     }
 
     public function create()
     {
-        $pizzas = Pizza::all();
-        return view('ingredient.create', compact('pizzas'));
+        return view('ingredients.new');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'pizza_id' => 'required|exists:pizzas,id',
-            'ingredient_id' => 'required|exists:ingredient_types,id',
-            'quantity' => 'required|numeric|min:0.01'
-        ]);
+        $ingredient = new Ingredient();
+        $ingredient->name = $request->name;
+        $ingredient->save();
 
-        Ingredient::create($request->all());
+        $ingredients = DB::table('ingredients')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return redirect()->route('ingredient.index')
-               ->with('success', 'Ingrediente agregado a la pizza correctamente');
+        return view('ingredients.index', ['ingredients' => $ingredients]);
     }
 
-    public function show(Ingredient $ingredient)
+    public function edit(string $id)
     {
-        return view('ingredient.show', compact('ingredient'));
+        $ingredient = Ingredient::find($id);
+
+        return view('ingredients.edit', ['ingredient' => $ingredient]);
     }
 
-    public function edit(Ingredient $ingredient)
+    public function update(Request $request, string $id)
     {
-        $pizzas = Pizza::all();
-        $ingredientTypes = IngredientType::all();
-        return view('ingredient.edit', compact('ingredient', 'pizzas', 'ingredientTypes'));
+        $ingredient = Ingredient::find($id);
+        $ingredient->name = $request->name;
+        $ingredient->save();
+
+        $ingredients = DB::table('ingredients')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('ingredients.index', ['ingredients' => $ingredients]);
     }
 
-    public function update(Request $request, Ingredient $ingredient)
+    public function destroy(string $id)
     {
-        $request->validate([
-            'pizza_id' => 'required|exists:pizzas,id',
-            'ingredient_id' => 'required|exists:ingredient_types,id',
-            'quantity' => 'required|numeric|min:0.01'
-        ]);
-
-        $ingredient->update($request->all());
-
-        return redirect()->route('ingredient.index')
-               ->with('success', 'Ingrediente actualizado correctamente');
-    }
-
-    public function destroy(Ingredient $ingredient)
-    {
+        $ingredient = Ingredient::find($id);
         $ingredient->delete();
-        return redirect()->route('ingredient.index')
-               ->with('success', 'Ingrediente eliminado correctamente');
+
+        $ingredients = DB::table('ingredients')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('ingredients.index', ['ingredients' => $ingredients]);
     }
 }
