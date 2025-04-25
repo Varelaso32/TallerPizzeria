@@ -8,15 +8,7 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pizza_id', 'ingredient_id', 'quantity'];
-
-    public function pizza()
-    {
-        return $this->belongsTo(Pizza::class);
-    }
-
-    public function ingredients()
-    {
-        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
-    }
+    protected $table = 'ingredients';         
+    protected $primaryKey = 'id';       
+    public $timestamps = false; 
 }

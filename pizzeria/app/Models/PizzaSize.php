@@ -9,11 +9,6 @@ class PizzaSize extends Model
     use HasFactory;
 
     protected $table = 'pizza_size'; 
-
-    protected $fillable = ['pizza_id', 'size', 'price'];
-
-    public function pizza()
-    {
-        return $this->belongsTo(Pizza::class);
-    }
+    protected $primaryKey = 'id';       
+    public $timestamps = false; 
 }
