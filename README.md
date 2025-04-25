@@ -19,3 +19,10 @@ DB_PORT=3306
 DB_DATABASE=pizzeria
 DB_USERNAME=root
 DB_PASSWORD=
+
+
+
+
+Tabla 4 pizzas - Kota
+Tabla 5 pizza_size - Kota
+Tabla 6 ingredientes - Kota

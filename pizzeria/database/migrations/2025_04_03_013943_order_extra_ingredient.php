@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('order_extra_ingredient', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId('extra_ingredient_id')->constrained('extra_ingredients')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained('orders')->onDelete('restrict');
+            $table->foreignId('extra_ingredient_id')->constrained('extra_ingredients')->onDelete('restrict');
             $table->integer('quantity');
-            
+
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

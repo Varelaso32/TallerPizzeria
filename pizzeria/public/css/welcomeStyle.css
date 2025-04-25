@@ -1,0 +1,22 @@
+
+body {
+    background-color: #ffffff; 
+    color: #000000; 
+}
+.btn-primary {
+    background-color: #c1121f;
+    border-color: #c1121f;
+}
+.btn-primary:hover {
+    background-color: #a50e1a;
+    border-color: #a50e1a;
+}
+.btn-outline-secondary {
+    color: #c1121f;
+    border-color: #c1121f;
+}
+.btn-outline-secondary:hover {
+    background-color: #c1121f;
+    color: #fff;
+    border-color: #c1121f;
+}
