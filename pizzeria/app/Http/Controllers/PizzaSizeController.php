@@ -1,22 +1,40 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\Pizza;
 use App\Models\PizzaSize;
+use App\Models\Pizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PizzaSizeController extends Controller
 {
     public function index()
     {
-        $sizes = PizzaSize::with('pizza')->get();
-        return view('pizza-size.index', compact('sizes'));
+        // Obtener todos los tamaños de pizza con los detalles de la pizza
+        $pizzaSizes = DB::table('pizza_size as ps')
+            ->join('pizzas as p', 'ps.pizza_id', '=', 'p.id')
+            ->select(
+                'ps.id',
+                'p.name as pizza_name',
+                'ps.size',
+                'ps.price',
+                'ps.created_at',
+                'ps.updated_at'
+            )
+            ->orderBy('p.name')
+            ->orderBy('ps.size')
+            ->get();
+
+        return view('pizza_size.index', ['pizzaSizes' => $pizzaSizes]);
     }
 
     public function create()
     {
-        $pizzas = Pizza::all();
-        return view('pizza-size.create', compact('pizzas'));
+        // Obtener las pizzas para asignar a un tamaño
+        $pizzas = Pizza::orderBy('name')->get();
+
+        return view('pizza_size.new', ['pizzas' => $pizzas]);
     }
 
     public function store(Request $request)
@@ -24,41 +42,54 @@ class PizzaSizeController extends Controller
         $request->validate([
             'pizza_id' => 'required|exists:pizzas,id',
             'size' => 'required|in:pequeña,mediana,grande',
-            'price' => 'required|numeric|min:0'
+            'price' => 'required|numeric|min:0.01|max:9999.99',
         ]);
 
-        PizzaSize::create($request->all());
+        // Crear el nuevo tamaño de pizza
+        $pizzaSize = new PizzaSize();
+        $pizzaSize->pizza_id = $request->pizza_id;
+        $pizzaSize->size = $request->size;
+        $pizzaSize->price = $request->price;
+        $pizzaSize->save();
 
-        return redirect()->route('pizza-size.index')->with('success', 'Tamaño de pizza creado correctamente');
+        // Redirigir a la vista de listado de tamaños de pizza
+        return $this->index();
     }
 
-    public function show(PizzaSize $pizzaSize)
+    public function edit(string $id)
     {
-        return view('pizza-size.show', compact('pizzaSize'));
+        $pizzaSize = PizzaSize::find($id);
+        $pizzas = Pizza::orderBy('name')->get();
+
+        return view('pizza_size.edit', ['pizzaSize' => $pizzaSize, 'pizzas' => $pizzas]);
     }
 
-    public function edit(PizzaSize $pizzaSize)
-    {
-        $pizzas = Pizza::all();
-        return view('pizza-size.edit', compact('pizzaSize', 'pizzas'));
-    }
-
-    public function update(Request $request, PizzaSize $pizzaSize)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'pizza_id' => 'required|exists:pizzas,id',
             'size' => 'required|in:pequeña,mediana,grande',
-            'price' => 'required|numeric|min:0'
+            'price' => 'required|numeric|min:0.01|max:9999.99',
         ]);
 
-        $pizzaSize->update($request->all());
+        // Actualizar el tamaño de pizza
+        $pizzaSize = PizzaSize::find($id);
+        $pizzaSize->pizza_id = $request->pizza_id;
+        $pizzaSize->size = $request->size;
+        $pizzaSize->price = $request->price;
+        $pizzaSize->save();
 
-        return redirect()->route('pizza-size.index')->with('success', 'Tamaño de pizza actualizado correctamente');
+        // Redirigir a la vista de listado de tamaños de pizza
+        return $this->index();
     }
 
-    public function destroy(PizzaSize $pizzaSize)
+    public function destroy(string $id)
     {
+        // Eliminar el tamaño de pizza
+        $pizzaSize = PizzaSize::find($id);
         $pizzaSize->delete();
-        return redirect()->route('pizza-size.index')->with('success', 'Tamaño de pizza eliminado correctamente');
+
+        // Redirigir a la vista de listado de tamaños de pizza
+        return $this->index();
     }
 }

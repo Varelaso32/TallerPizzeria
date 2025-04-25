@@ -133,22 +133,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pizzas/{pizza}', [PizzasController::class, 'destroy'])->name('pizzas.destroy');
 
     // Rutas para Tamaños de Pizza
-    Route::get('/pizza-size', [PizzaSizeController::class, 'index'])->name('pizza-size.index');
-    Route::get('/pizza-size/create', [PizzaSizeController::class, 'create'])->name('pizza-size.create');
-    Route::post('/pizza-size', [PizzaSizeController::class, 'store'])->name('pizza-size.store');
-    Route::get('/pizza-size/{pizzaSize}', [PizzaSizeController::class, 'show'])->name('pizza-size.show');
-    Route::get('/pizza-size/{pizzaSize}/edit', [PizzaSizeController::class, 'edit'])->name('pizza-size.edit');
-    Route::put('/pizza-size/{pizzaSize}', [PizzaSizeController::class, 'update'])->name('pizza-size.update');
-    Route::delete('/pizza-size/{pizzaSize}', [PizzaSizeController::class, 'destroy'])->name('pizza-size.destroy');
+    Route::get('/pizza_size', [PizzaSizeController::class, 'index'])->name('pizza_size.index');
+    Route::get('/pizza_size/create', [PizzaSizeController::class, 'create'])->name('pizza_size.create');
+    Route::post('/pizza_size', [PizzaSizeController::class, 'store'])->name('pizza_size.store');
+    Route::get('/pizza_size/{pizzaSize}', [PizzaSizeController::class, 'show'])->name('pizza_size.show');
+    Route::get('/pizza_size/{pizzaSize}/edit', [PizzaSizeController::class, 'edit'])->name('pizza_size.edit');
+    Route::put('/pizza_size/{pizzaSize}', [PizzaSizeController::class, 'update'])->name('pizza_size.update');
+    Route::delete('/pizza_size/{pizzaSize}', [PizzaSizeController::class, 'destroy'])->name('pizza_size.destroy');
 
     // Rutas para Ingredientes
-    Route::get('/ingredient', [IngredientController::class, 'index'])->name('ingredient.index');
-    Route::get('/ingredient/create', [IngredientController::class, 'create'])->name('ingredient.create');
-    Route::post('/ingredient', [IngredientController::class, 'store'])->name('ingredient.store');
-    Route::get('/ingredient/{ingredient}/edit', [IngredientController::class, 'edit'])->name('ingredient.edit');
-    Route::put('/ingredient/{ingredient}', [IngredientController::class, 'update'])->name('ingredient.update');
-    Route::delete('/ingredient/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
-
+    Route::get('/ingredients', [IngredientController::class, 'index'])->name('ingredients.index');
+    Route::get('/ingredients/create', [IngredientController::class, 'create'])->name('ingredients.create');
+    Route::post('/ingredients', [IngredientController::class, 'store'])->name('ingredients.store');
+    Route::get('/ingredients/{ingredient}', [IngredientController::class, 'show'])->name('ingredients.show'); // opcional
+    Route::get('/ingredients/{ingredient}/edit', [IngredientController::class, 'edit'])->name('ingredients.edit');
+    Route::put('/ingredients/{ingredient}', [IngredientController::class, 'update'])->name('ingredients.update');
+    Route::delete('/ingredients/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredients.destroy');
 
     // Rutas para Orders Extra Ingredient
     Route::get('/order_extra_ingredients', [OrderExtraIngredientController::class, 'index'])->name('order_extra_ingredients.index');

@@ -76,13 +76,13 @@
                 </a>
 
                 <!-- Tamaños de Pizza -->
-                <a href="{{ route('pizza-size.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                <a href="{{ route('pizza_size.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
                     <h3 class="text-lg font-bold text-red-600 mb-2">📏 Tamaños de Pizza</h3>
                     <p class="text-black text-sm">Administra los distintos tamaños de pizza ofrecidos.</p>
                 </a>
 
                 <!-- Ingredientes -->
-                <a href="{{ route('ingredient.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
+                <a href="{{ route('ingredients.index') }}" class="bg-white border border-red-600 hover:bg-red-50 shadow-md hover:shadow-lg rounded-2xl p-6 transition duration-300">
                     <h3 class="text-lg font-bold text-red-600 mb-2">🧄 Ingredientes</h3>
                     <p class="text-black text-sm">Lista y administra todos los ingredientes base.</p>
                 </a>
