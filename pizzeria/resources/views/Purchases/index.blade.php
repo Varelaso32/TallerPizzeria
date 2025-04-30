@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Compras</title>
+    <title>{{ __('purchases.purchase_list') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/indexStyle.css') }}">
@@ -14,7 +14,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Listado de Compras') }}
+                {{ __('purchases.purchase_list') }}
             </h2>
         </x-slot>
 
@@ -22,7 +22,7 @@
             <div class="card-style p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <a href="{{ route('purchases.create') }}" class="btn btn-danger btn-sm ms-auto">
-                        <i class="bi bi-plus-lg me-1"></i>Registrar nueva compra
+                        <i class="bi bi-plus-lg me-1"></i>{{ __('purchases.add_purchase') }}
                     </a>
                 </div>
 
@@ -30,13 +30,13 @@
                     <table class="table table-bordered table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Cantidad</th>
-                                <th>Precio de Compra</th>
-                                <th>Fecha de Compra</th>
-                                <th>Creado</th>
-                                <th>Actualizado</th>
-                                <th class="text-center">Acciones</th>
+                                <th>{{ __('purchases.id') }}</th>
+                                <th>{{ __('purchases.quantity') }}</th>
+                                <th>{{ __('purchases.purchase_price') }}</th>
+                                <th>{{ __('purchases.purchase_date') }}</th>
+                                <th>{{ __('purchases.created_at') }}</th>
+                                <th>{{ __('purchases.updated_at') }}</th>
+                                <th class="text-center">{{ __('purchases.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,25 +51,27 @@
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
                                             <a href="{{ route('purchases.edit', ['purchase' => $purchase->id]) }}"
-                                                class="btn btn-outline-dark btn-icon" title="Editar">
+                                                class="btn btn-outline-dark btn-icon" title="{{ __('purchases.edit') }}">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
 
                                             <form action="{{ route('purchases.destroy', ['purchase' => $purchase->id]) }}"
                                                 method="POST"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar esta compra?');">
+                                                data-confirm="{{ __('purchases.confirm_delete') }}">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-icon" title="Eliminar">
+                                                <button type="submit" class="btn btn-danger btn-icon" title="{{ __('purchases.delete') }}">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
-                                            </form>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="text-center text-muted">No hay compras registradas.</td>
+                                    <td colspan="7" class="text-center text-muted">
+                                        {{ __('purchases.no_purchases') }}
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
