@@ -25,6 +25,7 @@ return [
     ],
     'forms' => [
         'save' => 'Guardar',
+        'update' => 'Actualizar',
         'cancel' => 'Cancelar',
         'client' => [
             'label' => 'Cliente',

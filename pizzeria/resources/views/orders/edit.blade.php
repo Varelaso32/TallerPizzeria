@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-danger">Actualizar</button>
-                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">{{ __('orders.forms.update') }}</button>
+                    <a href="{{ route('orders.index') }}" class="btn btn-secondary">{{ __('orders.forms.cancel') }}</a>
                 </div>
             </form>
         </div>
