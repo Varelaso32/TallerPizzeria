@@ -43,4 +43,28 @@
                         placeholder="{{ __('purchases.enter_quantity') }}" required>
                 </div>
 
-                <div class="mb-
+                <div class="mb-3">
+                    <label for="purchase_price" class="form-label">{{ __('purchases.purchase_price') }}</label>
+                    <input type="number" step="0.01" class="form-control" id="purchase_price" name="purchase_price"
+                        placeholder="{{ __('purchases.enter_purchase_price') }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="purchase_date" class="form-label">{{ __('purchases.purchase_date') }}</label>
+                    <input type="date" class="form-control" id="purchase_date" name="purchase_date" required>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-danger">{{ __('purchases.save') }}</button>
+                    <a href="{{ route('purchases.index') }}" class="btn btn-secondary">{{ __('purchases.cancel') }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
