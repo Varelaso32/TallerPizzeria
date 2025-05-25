@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\UsersController;
 use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\OrdenController;
+use App\Http\Controllers\api\PizzaRawMaterialController;
 use App\Http\Controllers\api\EmployesController;
 
 use Illuminate\Http\Request;
@@ -39,3 +40,10 @@ Route::post('/employees', [EmployesController::class, 'store'])->name('employees
 Route::get('/employees/{employee}', [EmployesController::class, 'show'])->name('employees.show');
 Route::put('/employees/{employee}', [EmployesController::class, 'update'])->name('employees.update');
 Route::delete('/employees/{employee}', [EmployesController::class, 'destroy'])->name('employees.destroy');
+
+// Rutas de pizza raw materials
+Route::get('/pizza-raw-materials', [PizzaRawMaterialController::class, 'index'])->name('pizza-raw-materials');
+Route::post('/pizza-raw-materials', [PizzaRawMaterialController::class, 'store'])->name('pizza-raw-materials.store');
+Route::get('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'show'])->name('pizza-raw-materials.show');
+Route::put('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'update'])->name('pizza-raw-materials.update');
+Route::delete('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'destroy'])->name('pizza-raw-materials.destroy');
