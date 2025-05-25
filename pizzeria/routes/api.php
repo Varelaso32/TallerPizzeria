@@ -3,6 +3,8 @@
 use App\Http\Controllers\api\UsersController;
 use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\OrdenController;
+use App\Http\Controllers\api\EmployesController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +32,10 @@ Route::post('/clients', [ClientsController::class, 'store'])->name('clients.stor
 Route::get('/clients/{client}', [ClientsController::class, 'show'])->name('clients.show');
 Route::put('/clients/{client}', [ClientsController::class, 'update'])->name('clients.update');
 Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])->name('clients.destroy');
+
+// Rutas de employees
+Route::get('/employees', [EmployesController::class, 'index'])->name('employees');
+Route::post('/employees', [EmployesController::class, 'store'])->name('employees.store');
+Route::get('/employees/{employee}', [EmployesController::class, 'show'])->name('employees.show');
+Route::put('/employees/{employee}', [EmployesController::class, 'update'])->name('employees.update');
+Route::delete('/employees/{employee}', [EmployesController::class, 'destroy'])->name('employees.destroy');
