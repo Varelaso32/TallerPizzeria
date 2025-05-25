@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\UsersController;
+use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\OrdenController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,10 @@ Route::post('/users', [UsersController::class, 'store'])->name('users.store');
 Route::get('/users/{user}', [UsersController::class, 'show'])->name('users.show');
 Route::put('/users/{user}', [UsersController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+
+// Rutas de clients
+Route::get('/clients', [ClientsController::class, 'index'])->name('clients');
+Route::post('/clients', [ClientsController::class, 'store'])->name('clients.store');
+Route::get('/clients/{client}', [ClientsController::class, 'show'])->name('clients.show');
+Route::put('/clients/{client}', [ClientsController::class, 'update'])->name('clients.update');
+Route::delete('/clients/{client}', [ClientsController::class, 'destroy'])->name('clients.destroy');
