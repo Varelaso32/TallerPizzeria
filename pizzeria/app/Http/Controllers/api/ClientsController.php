@@ -33,7 +33,7 @@ class ClientsController extends Controller
     public function index()
     {
         $clients = $this->getClients();
-        return json_encode($clients);
+        return response()->json($clients);
     }
 
     /**
@@ -48,7 +48,7 @@ class ClientsController extends Controller
         $client->save();
 
         $clients = $this->getClients();
-        return json_encode($clients);
+        return response()->json($clients);
     }
 
     /**
@@ -57,7 +57,7 @@ class ClientsController extends Controller
     public function show(string $id)
     {
         $client = Clients::find($id);
-        return json_encode($client);
+        return response()->json($client);
     }
 
     /**
@@ -72,7 +72,7 @@ class ClientsController extends Controller
         $client->save();
 
         $clients = $this->getClients();
-        return json_encode($clients);
+        return response()->json($clients);
     }
 
     /**
@@ -84,6 +84,6 @@ class ClientsController extends Controller
         $client->delete();
 
         $clients = $this->getClients();
-        return json_encode($clients);
+        return response()->json($clients);
     }
 }

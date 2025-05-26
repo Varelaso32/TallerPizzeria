@@ -33,7 +33,7 @@ class EmployesController extends Controller
     public function index()
     {
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -50,7 +50,7 @@ class EmployesController extends Controller
         $employee->save();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -59,7 +59,7 @@ class EmployesController extends Controller
     public function show(string $id)
     {
         $employee = Employes::find($id);
-        return json_encode($employee);
+        return response()->json($employee);
     }
 
     /**
@@ -76,7 +76,7 @@ class EmployesController extends Controller
         $employee->save();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -88,6 +88,6 @@ class EmployesController extends Controller
         $employee->delete();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 }

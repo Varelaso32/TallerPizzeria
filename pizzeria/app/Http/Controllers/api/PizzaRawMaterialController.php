@@ -33,7 +33,7 @@ class PizzaRawMaterialController extends Controller
     public function index()
     {
         $ingredients = $this->getPizzaIngredients();
-        return json_encode($ingredients);
+        return response()->json($ingredients);
     }
 
     /**
@@ -48,7 +48,7 @@ class PizzaRawMaterialController extends Controller
         $ingredient->save();
 
         $ingredients = $this->getPizzaIngredients();
-        return json_encode($ingredients);
+        return response()->json($ingredients);
     }
 
     /**
@@ -57,7 +57,7 @@ class PizzaRawMaterialController extends Controller
     public function show(string $id)
     {
         $ingredient = PizzaRawMaterial::find($id);
-        return json_encode($ingredient);
+        return response()->json($ingredient);
     }
 
     /**
@@ -72,7 +72,7 @@ class PizzaRawMaterialController extends Controller
         $ingredient->save();
 
         $ingredients = $this->getPizzaIngredients();
-        return json_encode($ingredients);
+        return response()->json($ingredients);
     }
 
     /**
@@ -84,6 +84,6 @@ class PizzaRawMaterialController extends Controller
         $ingredient->delete();
 
         $ingredients = $this->getPizzaIngredients();
-        return json_encode($ingredients);
+        return response()->json($ingredients);
     }
 }

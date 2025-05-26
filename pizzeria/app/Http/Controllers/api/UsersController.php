@@ -26,7 +26,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -43,7 +43,7 @@ class UsersController extends Controller
         $user->save();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -52,7 +52,7 @@ class UsersController extends Controller
     public function show(string $id)
     {
         $user = Users::find($id);
-        return json_encode($user);
+        return response()->json($user);
     }
 
     /**
@@ -73,7 +73,7 @@ class UsersController extends Controller
         $user->save();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -85,6 +85,6 @@ class UsersController extends Controller
         $user->delete();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 }
