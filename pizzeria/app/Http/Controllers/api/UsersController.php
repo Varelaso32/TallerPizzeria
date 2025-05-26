@@ -39,7 +39,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:6'],
-            'role' => ['required', 'string', 'in:admin,client,employee'] // Ajustá según roles válidos
+            'role' => ['required', 'string', 'in:cliente,empleado']
         ]);
 
         if ($validate->fails()) {
@@ -88,7 +88,7 @@ class UsersController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $id],
             'password' => ['nullable', 'string', 'min:6'],
-            'role' => ['required', 'string', 'in:admin,client,employee'] // Ajustá los valores válidos
+            'role' => ['required', 'string', 'in:cliente,empleado']
         ]);
 
         if ($validate->fails()) {
