@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Suppliers;
 
 class SuppliersController extends Controller
@@ -34,6 +35,19 @@ class SuppliersController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255', 'unique:suppliers,name'],
+            'contact_info' => ['required', 'string', 'max:255']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $supplier = new Suppliers();
 
         $supplier->name = $request->input('name');
@@ -59,6 +73,26 @@ class SuppliersController extends Controller
     public function update(Request $request, string $id)
     {
         $supplier = Suppliers::find($id);
+
+        if (!$supplier) {
+            return response()->json([
+                'msg' => 'Proveedor no encontrado.',
+                'statusCode' => 404
+            ], 404);
+        }
+
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255', 'unique:suppliers,name,' . $id],
+            'contact_info' => ['required', 'string', 'max:255']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
 
         $supplier->name = $request->input('name');
         $supplier->contact_info = $request->input('contact_info');

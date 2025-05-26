@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Purchases;
 
 class PurchaseController extends Controller
@@ -40,6 +41,22 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'supplier_id' => ['required', 'exists:suppliers,id'],
+            'raw_material_id' => ['required', 'exists:raw_materials,id'],
+            'quantity' => ['required', 'numeric', 'min:0.01'],
+            'purchase_price' => ['required', 'numeric', 'min:0'],
+            'purchase_date' => ['required', 'date']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $purchase = new Purchases();
 
         $purchase->supplier_id = $request->input('supplier_id');
@@ -75,6 +92,22 @@ class PurchaseController extends Controller
 
         if (!$purchase) {
             return response()->json(['error' => 'Compra no encontrada'], 404);
+        }
+
+        $validate = Validator::make($request->all(), [
+            'supplier_id' => ['required', 'exists:suppliers,id'],
+            'raw_material_id' => ['required', 'exists:raw_materials,id'],
+            'quantity' => ['required', 'numeric', 'min:0.01'],
+            'purchase_price' => ['required', 'numeric', 'min:0'],
+            'purchase_date' => ['required', 'date']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
         }
 
         $purchase->supplier_id = $request->input('supplier_id');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\PizzaRawMaterial;
 
 class PizzaRawMaterialController extends Controller
@@ -41,6 +42,20 @@ class PizzaRawMaterialController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'pizza_id' => ['required', 'exists:pizzas,id'],
+            'raw_material_id' => ['required', 'exists:raw_materials,id'],
+            'quantity' => ['required', 'numeric', 'min:0.01']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $ingredient = new PizzaRawMaterial();
         $ingredient->pizza_id = $request->input('pizza_id');
         $ingredient->raw_material_id = $request->input('raw_material_id');
@@ -65,6 +80,20 @@ class PizzaRawMaterialController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validate = Validator::make($request->all(), [
+            'pizza_id' => ['required', 'exists:pizzas,id'],
+            'raw_material_id' => ['required', 'exists:raw_materials,id'],
+            'quantity' => ['required', 'numeric', 'min:0.01']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $ingredient = PizzaRawMaterial::find($id);
         $ingredient->pizza_id = $request->input('pizza_id');
         $ingredient->raw_material_id = $request->input('raw_material_id');
