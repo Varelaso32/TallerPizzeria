@@ -7,6 +7,7 @@ use App\Http\Controllers\api\PurchaseController;
 use App\Http\Controllers\api\OrdenController;
 use App\Http\Controllers\api\PizzaRawMaterialController;
 use App\Http\Controllers\api\EmployesController;
+use App\Http\Controllers\api\RawMaterialsController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -63,3 +64,10 @@ Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases
 Route::get('/purchases/{id}', [PurchaseController::class, 'show'])->name('purchases.show');
 Route::put('/purchases/{id}', [PurchaseController::class, 'update'])->name('purchases.update');
 Route::delete('/purchases/{id}', [PurchaseController::class, 'destroy'])->name('purchases.destroy');
+
+// Rutas de raw materials
+Route::get('/raw-materials', [RawMaterialsController::class, 'index'])->name('raw-materials');
+Route::post('/raw-materials', [RawMaterialsController::class, 'store'])->name('raw-materials.store');
+Route::get('/raw-materials/{id}', [RawMaterialsController::class, 'show'])->name('raw-materials.show');
+Route::put('/raw-materials/{id}', [RawMaterialsController::class, 'update'])->name('raw-materials.update');
+Route::delete('/raw-materials/{id}', [RawMaterialsController::class, 'destroy'])->name('raw-materials.destroy');
