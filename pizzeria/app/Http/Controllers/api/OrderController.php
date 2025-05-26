@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 
-class OrdenController extends Controller
+class OrderController extends Controller
 {
     private function getOrders()
     {
