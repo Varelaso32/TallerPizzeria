@@ -18,11 +18,22 @@ class BranchController extends Controller
         return json_encode($branches);
     }
 
+    private $validate = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+        'address' => 'required|string|max:255'
+    ]);
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $branch = new Branch();
         $branch->name = $request->input('name');
         $branch->address = $request->input('address');
@@ -40,6 +51,10 @@ class BranchController extends Controller
     {
         $branch = Branch::find($id);
 
+        if (is_null($branch)) {
+            return abort(404);
+        }
+
         return json_encode($branch);
     }
 
@@ -48,7 +63,19 @@ class BranchController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $branch = Branch::find($id);
+
+        if (is_null($branch)) {
+            return abort(404);
+        }
+
         $branch->name = $request->input('name');
         $branch->address = $request->input('address');
         $branch->save();
@@ -64,6 +91,11 @@ class BranchController extends Controller
     public function destroy(string $id)
     {
         $branch = Branch::find($id);
+
+        if (is_null($branch)) {
+            return abort(404);
+        }
+
         $branch->delete();
 
         $branches = Branch::all();

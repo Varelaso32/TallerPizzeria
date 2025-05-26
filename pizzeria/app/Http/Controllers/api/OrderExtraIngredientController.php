@@ -24,6 +24,12 @@ class OrderExtraIngredientController extends Controller
             ->get();
         return $orderExtraIngredients;
     }
+
+    private $validate = Validator::make($request->all(), [
+        'order_id' => 'required|exists:orders,id',
+        'extra_ingredient_id' => 'required|exists:extra_ingredients,id',
+        'quantity' => 'required|integer|min:1'
+    ]);
     /**
      * Display a listing of the resource.
      */
@@ -39,6 +45,13 @@ class OrderExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $orderExtraIngredient = new OrderExtraIngredient();
         $orderExtraIngredient->order_id = $request->input('order_id');
         $orderExtraIngredient->extra_ingredient_id = $request->input('extra_ingredient_id');
@@ -55,6 +68,11 @@ class OrderExtraIngredientController extends Controller
     public function show(string $id)
     {
         $orderExtraIngredient = OrderExtraIngredient::find($id);
+
+        if (is_null($orderExtraIngredient)) {
+            return abort(404);
+        }
+
         return json_encode($orderExtraIngredient);
     }
 
@@ -63,7 +81,19 @@ class OrderExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $orderExtraIngredient = OrderExtraIngredient::find($id);
+
+        if (is_null($orderExtraIngredient)) {
+            return abort(404);
+        }
+
         $orderExtraIngredient->order_id = $request->input('order_id');
         $orderExtraIngredient->extra_ingredient_id = $request->input('extra_ingredient_id');
         $orderExtraIngredient->quantity = $request->input('quantity');
@@ -79,6 +109,11 @@ class OrderExtraIngredientController extends Controller
     public function destroy(string $id)
     {
         $orderExtraIngredient = OrderExtraIngredient::find($id);
+
+        if (is_null($orderExtraIngredient)) {
+            return abort(404);
+        }
+
         $orderExtraIngredient->delete();
 
         $orderExtraIngredients = $this->getOrderExtraIngredients();
