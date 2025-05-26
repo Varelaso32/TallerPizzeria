@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\SuppliersController;
 use App\Http\Controllers\api\UsersController;
 use App\Http\Controllers\api\ClientsController;
 use App\Http\Controllers\api\OrdenController;
@@ -47,3 +48,10 @@ Route::post('/pizza-raw-materials', [PizzaRawMaterialController::class, 'store']
 Route::get('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'show'])->name('pizza-raw-materials.show');
 Route::put('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'update'])->name('pizza-raw-materials.update');
 Route::delete('/pizza-raw-materials/{id}', [PizzaRawMaterialController::class, 'destroy'])->name('pizza-raw-materials.destroy');
+
+// Rutas de suppliers
+Route::get('/suppliers', [SuppliersController::class, 'index'])->name('suppliers');
+Route::post('/suppliers', [SuppliersController::class, 'store'])->name('suppliers.store');
+Route::get('/suppliers/{id}', [SuppliersController::class, 'show'])->name('suppliers.show');
+Route::put('/suppliers/{id}', [SuppliersController::class, 'update'])->name('suppliers.update');
+Route::delete('/suppliers/{id}', [SuppliersController::class, 'destroy'])->name('suppliers.destroy');
