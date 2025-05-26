@@ -15,6 +15,7 @@ use App\Http\Controllers\api\PurchaseController;
 use App\Http\Controllers\api\PizzaSizeController;
 use App\Http\Controllers\api\EmployesController;
 use App\Http\Controllers\api\RawMaterialsController;
+use App\Http\Controllers\api\IngredientController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -127,3 +128,10 @@ Route::post('/pizza-sizes', [PizzaSizeController::class, 'store'])->name('pizza-
 Route::get('/pizza-sizes/{id}', [PizzaSizeController::class, 'show'])->name('pizza-sizes.show');
 Route::put('/pizza-sizes/{id}', [PizzaSizeController::class, 'update'])->name('pizza-sizes.update');
 Route::delete('/pizza-sizes/{id}', [PizzaSizeController::class, 'destroy'])->name('pizza-sizes.destroy');
+
+// Rutas de ingredients
+Route::get('/ingredients', [IngredientController::class, 'index'])->name('ingredients');
+Route::post('/ingredients', [IngredientController::class, 'store'])->name('ingredients.store');
+Route::get('/ingredients/{id}', [IngredientController::class, 'show'])->name('ingredients.show');
+Route::put('/ingredients/{id}', [IngredientController::class, 'update'])->name('ingredients.update');
+Route::delete('/ingredients/{id}', [IngredientController::class, 'destroy'])->name('ingredients.destroy');
