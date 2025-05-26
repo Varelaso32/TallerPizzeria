@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
+use Validator;
 
 class OrderController extends Controller
 {
@@ -26,6 +27,15 @@ class OrderController extends Controller
             ->get();
         return $orders;
     }
+
+    private $validate = Validator::make($request->all(), [
+        'client_id' => 'required|exists:clients,id',
+        'branch_id' => 'required|exists:branches,id',
+        'total_price' => 'required|numeric|min:0',
+        'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
+        'delivery_type' => 'required|in:en_local,a_domicilio',
+        'delivery_person_id' => 'nullable|exists:employees,id'
+    ]);
     /**
      * Display a listing of the resource.
      */
@@ -40,6 +50,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $order = new Order();
         $order->client_id = $request->input('client_id');
         $order->branch_id = $request->input('branch_id');
@@ -59,6 +76,11 @@ class OrderController extends Controller
     public function show(string $id)
     {
         $order = Order::find($id);
+
+        if (is_null($order)) {
+            return abort(404);
+        }
+
         return json_encode($order);
     }
 
@@ -67,7 +89,18 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $order = Order::find($id);
+
+        if (is_null($order)) {
+            return abort(404);
+        }
 
         $order->client_id = $request->input('client_id');
         $order->branch_id = $request->input('branch_id');
@@ -87,6 +120,11 @@ class OrderController extends Controller
     public function destroy(string $id)
     {
         $order = Order::find($id);
+
+        if (is_null($order)) {
+            return abort(404);
+        }
+
         $order->delete();
 
         $orders = $this->getOrders();

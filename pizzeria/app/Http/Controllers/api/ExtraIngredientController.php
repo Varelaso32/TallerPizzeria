@@ -10,6 +10,11 @@ use App\Models\ExtraIngredients;
 
 class ExtraIngredientController extends Controller
 {
+    private $validate = Validator::make($request->all(), [
+        'name' => 'required|string|max:255|unique:extra_ingredients,name',
+        'price' => 'required|numeric|min:0|max:999999.99'
+    ]);
+    
     private function getExtraIngredient()
     {
         $extraIngredients = DB::table('extra_ingredients')
@@ -30,6 +35,13 @@ class ExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $extraIngredient = new ExtraIngredients();
 
         $extraIngredient->name = $request->name;
@@ -46,6 +58,10 @@ class ExtraIngredientController extends Controller
     {
         $extraIngredient = ExtraIngredients::find($id);
 
+        if (is_null($extraIngredient)) {
+            return abort(404);
+        }
+
         return json_encode($extraIngredient);
     }
 
@@ -54,7 +70,18 @@ class ExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $extraIngredient = ExtraIngredients::find($id);
+
+        if (is_null($extraIngredient)) {
+            return abort(404);
+        }
 
         $extraIngredient->name = $request->name;
         $extraIngredient->price = $request->price;
@@ -69,6 +96,11 @@ class ExtraIngredientController extends Controller
     public function destroy(string $id)
     {
         $extraIngredient = ExtraIngredients::find($id);
+
+        if (is_null($extraIngredient)) {
+            return abort(404);
+        }
+
         $extraIngredient->delete();
 
         return json_encode($this->getExtraIngredient());

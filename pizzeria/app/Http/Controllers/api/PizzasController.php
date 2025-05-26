@@ -19,6 +19,10 @@ class PizzasController extends Controller
 
         return $pizzas;
     }
+
+    private $validate = Validator::make($request->all(), [
+        'name' => 'required|string|max:255|unique:pizzas,name'
+    ]);
     /**
      * Display a listing of the resource.
      */
@@ -32,6 +36,13 @@ class PizzasController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $pizza = new Pizza();
         $pizza->name = $request->name;
         $pizza->save();
@@ -46,6 +57,10 @@ class PizzasController extends Controller
     {
         $pizza = Pizza::find($id);
 
+        if (is_null($pizza)) {
+            return abort(404);
+        }
+
         return json_encode($pizza);
     }
 
@@ -54,7 +69,18 @@ class PizzasController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if ($this->validate->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en la validación de la información.',
+                'statusCode' => 400
+            ]);
+        }
+
         $pizza = Pizza::find($id);
+
+        if (is_null($pizza)) {
+            return abort(404);
+        }
 
         $pizza->name = $request->name;
         $pizza->save();
@@ -68,6 +94,11 @@ class PizzasController extends Controller
     public function destroy(string $id)
     {
         $pizza = Pizza::find($id);
+
+        if (is_null($pizza)) {
+            return abort(404);
+        }
+
         $pizza->delete();
 
         return json_encode($this->getPizzas());
