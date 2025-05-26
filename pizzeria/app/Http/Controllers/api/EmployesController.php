@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Employes;
 
 class EmployesController extends Controller
@@ -33,7 +34,7 @@ class EmployesController extends Controller
     public function index()
     {
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -41,6 +42,22 @@ class EmployesController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'user_id' => ['required', 'exists:users,id'],
+            'position' => ['required', 'string', 'max:100'],
+            'identification_number' => ['required', 'string', 'max:50', 'unique:employees,identification_number'],
+            'salary' => ['required', 'numeric', 'min:0'],
+            'hire_date' => ['required', 'date']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $employee = new Employes();
         $employee->user_id = $request->input('user_id');
         $employee->position = $request->input('position');
@@ -50,7 +67,7 @@ class EmployesController extends Controller
         $employee->save();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -59,7 +76,7 @@ class EmployesController extends Controller
     public function show(string $id)
     {
         $employee = Employes::find($id);
-        return json_encode($employee);
+        return response()->json($employee);
     }
 
     /**
@@ -67,6 +84,22 @@ class EmployesController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validate = Validator::make($request->all(), [
+            'user_id' => ['required', 'exists:users,id'],
+            'position' => ['required', 'string', 'max:100'],
+            'identification_number' => ['required', 'string', 'max:50', 'unique:employees,identification_number,' . $id],
+            'salary' => ['required', 'numeric', 'min:0'],
+            'hire_date' => ['required', 'date']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
         $employee = Employes::find($id);
         $employee->user_id = $request->input('user_id');
         $employee->position = $request->input('position');
@@ -76,7 +109,7 @@ class EmployesController extends Controller
         $employee->save();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 
     /**
@@ -88,6 +121,6 @@ class EmployesController extends Controller
         $employee->delete();
 
         $employees = $this->getEmployees();
-        return json_encode($employees);
+        return response()->json($employees);
     }
 }

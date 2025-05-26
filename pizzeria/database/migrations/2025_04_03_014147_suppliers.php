@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('contact_info', 255)->nullable();
-            
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

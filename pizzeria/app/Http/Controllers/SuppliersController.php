@@ -11,15 +11,15 @@ class SuppliersController extends Controller
     public function index()
     {
         $supplier = DB::table('suppliers')
-        ->select('id', 'name', 'contact_info', 'created_at', 'updated_at')
-        ->get();
+            ->select('id', 'name', 'contact_info', 'created_at', 'updated_at')
+            ->get();
 
-        return view('suppliers.index',['suppliers' => $supplier]); 
+        return view('suppliers.index', ['suppliers' => $supplier]);
     }
 
     public function create()
     {
-        return view('suppliers.new'); 
+        return view('suppliers.new');
     }
 
     public function store(Request $request)
@@ -37,10 +37,7 @@ class SuppliersController extends Controller
         return redirect()->route('suppliers.index')->with('success', 'Supplier created successfully.');
     }
 
-    public function show($id)
-    {
-        
-    }
+    public function show($id) {}
 
     public function edit($id)
     {
@@ -58,10 +55,10 @@ class SuppliersController extends Controller
         $supplier->save();
 
         $supplier = DB::table('suppliers')
-        ->select('id', 'name', 'contact_info', 'created_at', 'updated_at')
-        ->get();
+            ->select('id', 'name', 'contact_info', 'created_at', 'updated_at')
+            ->get();
 
-        return view('suppliers.index',['suppliers' => $supplier]); 
+        return view('suppliers.index', ['suppliers' => $supplier]);
     }
 
     public function destroy($id)
