@@ -12,7 +12,7 @@ use App\Http\Controllers\api\PizzasController;
 use App\Http\Controllers\api\SuppliersController;
 use App\Http\Controllers\api\UsersController;
 use App\Http\Controllers\api\PurchaseController;
-use App\Http\Controllers\api\OrdenController;
+use App\Http\Controllers\api\PizzaSizeController;
 use App\Http\Controllers\api\EmployesController;
 use App\Http\Controllers\api\RawMaterialsController;
 
@@ -120,3 +120,10 @@ Route::post('/suppliers', [SuppliersController::class, 'store'])->name('supplier
 Route::get('/suppliers/{id}', [SuppliersController::class, 'show'])->name('suppliers.show');
 Route::put('/suppliers/{id}', [SuppliersController::class, 'update'])->name('suppliers.update');
 Route::delete('/suppliers/{id}', [SuppliersController::class, 'destroy'])->name('suppliers.destroy');
+
+// Rutas de pizza_sizes
+Route::get('/pizza-sizes', [PizzaSizeController::class, 'index'])->name('pizza-sizes');
+Route::post('/pizza-sizes', [PizzaSizeController::class, 'store'])->name('pizza-sizes.store');
+Route::get('/pizza-sizes/{id}', [PizzaSizeController::class, 'show'])->name('pizza-sizes.show');
+Route::put('/pizza-sizes/{id}', [PizzaSizeController::class, 'update'])->name('pizza-sizes.update');
+Route::delete('/pizza-sizes/{id}', [PizzaSizeController::class, 'destroy'])->name('pizza-sizes.destroy');
