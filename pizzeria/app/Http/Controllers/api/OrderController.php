@@ -28,14 +28,14 @@ class OrderController extends Controller
         return $orders;
     }
 
-    private $validate = Validator::make($request->all(), [
+    private $validationRules = [
         'client_id' => 'required|exists:clients,id',
         'branch_id' => 'required|exists:branches,id',
         'total_price' => 'required|numeric|min:0',
         'status' => 'required|in:pendiente,en_preparacion,listo,entregado',
         'delivery_type' => 'required|in:en_local,a_domicilio',
         'delivery_person_id' => 'nullable|exists:employees,id'
-    ]);
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -50,7 +50,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
@@ -89,7 +90,8 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400

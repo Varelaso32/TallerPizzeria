@@ -5,14 +5,15 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\pizza_ingredient;
 
 class PizzaIngredientController extends Controller
 {
-    private $validate = Validator::make($request->all(), [
+    private $validationRules = [
         'pizza_id' => 'required|exists:pizzas,id',
         'ingredient_id' => 'required|exists:ingredients,id'
-    ]);
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +37,8 @@ class PizzaIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
@@ -80,7 +82,8 @@ class PizzaIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
