@@ -14,7 +14,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Listado de Órdenes') }}
+                {{ __('orders.listTitle') }}
             </h2>
         </x-slot>
 
@@ -22,7 +22,7 @@
             <div class="card-style p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <a href="{{ route('orders.create') }}" class="btn btn-danger btn-sm ms-auto">
-                        <i class="bi bi-plus-lg me-1"></i>Agregar nueva orden
+                        <i class="bi bi-plus-lg me-1"></i>{{ __('orders.addOrder') }}
                     </a>
                 </div>
 
@@ -31,15 +31,15 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Cliente</th>
-                                <th>Sucursal</th>
-                                <th>Total</th>
-                                <th>Estado</th>
-                                <th>Tipo de delivery</th>
-                                <th>Domiciliario</th>
-                                <th>Creado</th>
-                                <th>Actualizado</th>
-                                <th class="text-center">Acciones</th>
+                                <th>{{ __('orders.headers.client') }}</th>
+                                <th>{{ __('orders.headers.branch') }}</th>
+                                <th>{{ __('orders.headers.total') }}</th>
+                                <th>{{ __('orders.headers.status') }}</th>
+                                <th>{{ __('orders.headers.typeDelivery') }}</th>
+                                <th>{{ __('orders.headers.deliveryMan') }}</th>
+                                <th>{{ __('orders.headers.createdAt') }}</th>
+                                <th>{{ __('orders.headers.updatedAt') }}</th>
+                                <th class="text-center">{{ __('orders.headers.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,16 +57,16 @@
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
                                             <a href="{{ route('orders.edit', ['order' => $order->id]) }}"
-                                                class="btn btn-outline-dark btn-icon" title="Editar">
+                                                class="btn btn-outline-dark btn-icon" title="{{ __('orders.actions.edit') }}">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
 
                                             <form action="{{ route('orders.destroy', ['order' => $order->id]) }}"
                                                 method="POST"
-                                                onsubmit="return confirm('¿Estás seguro de eliminar esta orden?');">
+                                                onsubmit="return confirm(__('orders.actions.confirmMessage');">
                                                 @csrf
                                                 @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-icon" title="Eliminar">
+                                                <button type="submit" class="btn btn-danger btn-icon" title="{{ __('orders.actions.delete') }}">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </form>
@@ -75,7 +75,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10" class="text-center text-muted">No hay órdenes registradas.</td>
+                                    <td colspan="10" class="text-center text-muted">{{ __('orders.headers.empty') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

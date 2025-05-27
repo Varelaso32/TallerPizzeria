@@ -14,7 +14,7 @@
     <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Órdenes con Ingredientes Extra') }}
+                {{ __('order_extra_ingredients.title') }}
             </h2>
         </x-slot>
 
@@ -22,7 +22,7 @@
             <div class="card-style p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <a href="{{ route('order_extra_ingredients.create') }}" class="btn btn-danger btn-sm ms-auto">
-                        <i class="bi bi-plus-lg me-1"></i>Agregar nueva orden con ingredientes extra
+                        <i class="bi bi-plus-lg me-1"></i>{{ __('order_extra_ingredients.add_button') }}
                     </a>
                 </div>
 
@@ -30,11 +30,11 @@
                     <table class="table table-bordered table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>Orden</th>
-                                <th>Cliente</th>
-                                <th>Ingrediente Extra</th>
-                                <th>Cantidad</th>
-                                <th class="text-center">Acciones</th>
+                                <th>{{ __('order_extra_ingredients.headers.order') }}</th>
+                                <th>{{ __('order_extra_ingredients.headers.client') }}</th>
+                                <th>{{ __('order_extra_ingredients.headers.extra_ingredient') }}</th>
+                                <th>{{ __('order_extra_ingredients.headers.quantity') }}</th>
+                                <th class="text-center">{{ __('order_extra_ingredients.headers.actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +51,7 @@
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <form action="{{ route('order_extra_ingredients.destroy', $order->id) }}"
-                                                method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este registro?');">
+                                                method="POST" onsubmit="return confirm(__('order_extra_ingredients.confirm_delete'));">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger btn-icon btn-sm" title="Eliminar">
@@ -63,7 +63,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted">No hay registros disponibles.</td>
+                                    <td colspan="5" class="text-center text-muted">{{ __('order_extra_ingredients.empty') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>

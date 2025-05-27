@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Órdenes con Ingredientes Extra</title>
+    <title>{{ __('order_extra_ingredients.edit') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
@@ -12,7 +12,7 @@
 <body style="background-color: #ffffff; color: #000000;">
     <div class="container mt-5">
         <div class="card shadow-sm rounded p-4">
-            <h1 class="text-danger mb-4">Editar Orden con Ingredientes Extra</h1>
+            <h1 class="text-danger mb-4">{{ __('order_extra_ingredients.edit') }}</h1>
 
         <form method="POST"
             action="{{ route('order_extra_ingredients.update', ['order_extra_ingredient' => $order_extra_ingredient->id]) }}">
@@ -20,9 +20,9 @@
             @csrf
 
             <div class="mb-3">
-                <label for="order_id" class="form-label">Orden</label>
+                <label for="order_id" class="form-label">{{ __('order_extra_ingredients.headers.order') }}</label>
                 <select class="form-select" id="order_id" name="order_id" required>
-                    <option selected disabled value="">Seleccione un orden...</option>
+                    <option selected disabled value="">{{ __('order_extra_ingredients.inputs.order') }}</option>
                     @foreach ($orders as $order)
                         <option value="{{ $order->id }}" {{ $order_extra_ingredient->order_id == $order->id ? 'selected' : '' }}>
                             {{ $order->id }} - {{ $order->client_name }}</option>
@@ -31,9 +31,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="extra_ingredient_id" class="form-label">Ingrediente extra</label>
+                <label for="extra_ingredient_id" class="form-label">{{ __('order_extra_ingredients.headers.extra_ingredient') }}</label>
                 <select class="form-select" id="extra_ingredient_id" name="extra_ingredient_id" required>
-                    <option selected disabled value="">Seleccione un ingrediente extra...</option>
+                    <option selected disabled value="">{{ __('order_extra_ingredients.inputs.extra_ingredient') }}</option>
                     @foreach ($extra_ingredients as $extraIngredient)
                         <option value="{{ $extraIngredient->id }}" {{ $order_extra_ingredient->extra_ingredient_id == $extraIngredient->id ? 'selected' : '' }}>{{ $extraIngredient->name }}</option>
                     @endforeach
@@ -41,14 +41,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="quantity" class="form-label">Cantidad</label>
+                <label for="quantity" class="form-label">{{ __('order_extra_ingredients.headers.quantity') }}</label>
                 <input type="number" min="1" class="form-control" id="quantity" name="quantity" required
-                    placeholder="Ingrese la cantidad" value="{{ $order_extra_ingredient->quantity }}">
+                    placeholder="{{ __('order_extra_ingredients.inputs.quantity') }}" value="{{ $order_extra_ingredient->quantity }}">
             </div>
 
                 <div class="d-flex justify-content-between mt-4">
-                    <button type="submit" class="btn btn-danger">Actualizar</button>
-                    <a href="{{ route('order_extra_ingredients.index') }}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">{{ __('order_extra_ingredients.forms.save') }}</button>
+                    <a href="{{ route('order_extra_ingredients.index') }}" class="btn btn-secondary">{{ __('order_extra_ingredients.forms.cancel') }}</a>
                 </div>
             </form>
         </div>
