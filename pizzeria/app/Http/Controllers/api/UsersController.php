@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Users;
 
 class UsersController extends Controller
@@ -26,7 +27,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -34,8 +35,22 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new Users();
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6'],
+            'role' => ['required', 'string', 'in:cliente,empleado']
+        ]);
 
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
+
+        $user = new Users();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
@@ -43,7 +58,7 @@ class UsersController extends Controller
         $user->save();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -52,7 +67,7 @@ class UsersController extends Controller
     public function show(string $id)
     {
         $user = Users::find($id);
-        return json_encode($user);
+        return response()->json($user);
     }
 
     /**
@@ -61,6 +76,28 @@ class UsersController extends Controller
     public function update(Request $request, string $id)
     {
         $user = Users::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'msg' => 'Usuario no encontrado.',
+                'statusCode' => 404
+            ], 404);
+        }
+
+        $validate = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $id],
+            'password' => ['nullable', 'string', 'min:6'],
+            'role' => ['required', 'string', 'in:cliente,empleado']
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'msg' => 'Error de validación.',
+                'errors' => $validate->errors(),
+                'statusCode' => 400
+            ], 400);
+        }
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -73,7 +110,7 @@ class UsersController extends Controller
         $user->save();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 
     /**
@@ -85,6 +122,6 @@ class UsersController extends Controller
         $user->delete();
 
         $users = $this->getUsers();
-        return json_encode($users);
+        return response()->json($users);
     }
 }
