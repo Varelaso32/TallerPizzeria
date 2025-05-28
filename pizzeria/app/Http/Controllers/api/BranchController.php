@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use Illuminate\Support\Facades\Validator;
 
 class BranchController extends Controller
 {
@@ -18,16 +19,17 @@ class BranchController extends Controller
         return json_encode($branches);
     }
 
-    private $validate = Validator::make($request->all(), [
+    private $validationRules = [
         'name' => 'required|string|max:255',
         'address' => 'required|string|max:255'
-    ]);
+    ];
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
@@ -63,7 +65,8 @@ class BranchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
