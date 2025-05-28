@@ -5,16 +5,17 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\ExtraIngredients;
 
 
 class ExtraIngredientController extends Controller
 {
-    private $validate = Validator::make($request->all(), [
+    private $validationRules = [
         'name' => 'required|string|max:255|unique:extra_ingredients,name',
         'price' => 'required|numeric|min:0|max:999999.99'
-    ]);
-    
+    ];
+
     private function getExtraIngredient()
     {
         $extraIngredients = DB::table('extra_ingredients')
@@ -35,7 +36,8 @@ class ExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
@@ -70,7 +72,8 @@ class ExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
