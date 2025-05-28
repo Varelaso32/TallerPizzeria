@@ -44,7 +44,7 @@ class EmployesController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'user_id' => ['required', 'exists:users,id'],
-            'position' => ['required', 'string', 'max:100'],
+            'position' => ['required', 'in:cajero,administrador,cocinero,mensajero'],
             'identification_number' => ['required', 'string', 'max:50', 'unique:employees,identification_number'],
             'salary' => ['required', 'numeric', 'min:0'],
             'hire_date' => ['required', 'date']
@@ -86,7 +86,7 @@ class EmployesController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'user_id' => ['required', 'exists:users,id'],
-            'position' => ['required', 'string', 'max:100'],
+            'position' => ['required', 'in:cajero,administrador,cocinero,mensajero'],
             'identification_number' => ['required', 'string', 'max:50', 'unique:employees,identification_number,' . $id],
             'salary' => ['required', 'numeric', 'min:0'],
             'hire_date' => ['required', 'date']

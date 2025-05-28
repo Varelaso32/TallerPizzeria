@@ -47,7 +47,7 @@ class PizzaSizeController extends Controller
         $validate = Validator::make($request->all(), [
             'pizza_id' => ['required', 'exists:pizzas,id'],
             'size' => ['required', 'in:pequeña,mediana,grande'],
-            'price' => ['required', 'numeric', 'min:0.01', 'max:9999.99'],
+            'price' => ['required', 'numeric', 'min:0.01', 'max:999999.99'],
         ]);
 
         if ($validate->fails()) {
@@ -96,7 +96,7 @@ class PizzaSizeController extends Controller
         $validate = Validator::make($request->all(), [
             'pizza_id' => ['required', 'exists:pizzas,id'],
             'size' => ['required', 'in:pequeña,mediana,grande'],
-            'price' => ['required', 'numeric', 'min:0.01', 'max:9999.99'],
+            'price' => ['required', 'numeric', 'min:0.01', 'max:999999.99'],
         ]);
 
         if ($validate->fails()) {
