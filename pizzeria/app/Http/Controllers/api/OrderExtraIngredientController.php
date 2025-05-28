@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use App\Models\OrderExtraIngredient;
 
 class OrderExtraIngredientController extends Controller
@@ -25,11 +26,11 @@ class OrderExtraIngredientController extends Controller
         return $orderExtraIngredients;
     }
 
-    private $validate = Validator::make($request->all(), [
+    private $validationRules = [
         'order_id' => 'required|exists:orders,id',
         'extra_ingredient_id' => 'required|exists:extra_ingredients,id',
         'quantity' => 'required|integer|min:1'
-    ]);
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -45,7 +46,8 @@ class OrderExtraIngredientController extends Controller
      */
     public function store(Request $request)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
@@ -81,7 +83,8 @@ class OrderExtraIngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        if ($this->validate->fails()) {
+        $validate = Validator::make($request->all(), $this->validationRules);
+        if ($validate->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en la validación de la información.',
                 'statusCode' => 400
