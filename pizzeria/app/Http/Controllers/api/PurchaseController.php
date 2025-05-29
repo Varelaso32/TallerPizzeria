@@ -66,7 +66,7 @@ class PurchaseController extends Controller
         $purchase->purchase_date = $request->input('purchase_date');
         $purchase->save();
 
-        return response()->json($this->getPurchases(), 201);
+        return response()->json($this->getPurchases());
     }
 
     /**
