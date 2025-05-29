@@ -97,6 +97,8 @@ Route::get('/users/{user}', [UsersController::class, 'show'])->name('users.show'
 Route::put('/users/{user}', [UsersController::class, 'update'])->name('users.update');
 Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+Route::post('/login', [UsersController::class, 'login'])->name('users.login');
+
 // Rutas de purchases
 Route::get('/purchases', [PurchaseController::class, 'index'])->name('purchases');
 Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
