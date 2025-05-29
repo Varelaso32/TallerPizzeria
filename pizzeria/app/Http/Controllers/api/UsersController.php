@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use App\Models\Users;
 
 class UsersController extends Controller
 {
-    /**
-     * Método privado reutilizable para obtener los usuarios
-     */
     private function getUsers()
     {
         return DB::table('users')
@@ -21,18 +20,11 @@ class UsersController extends Controller
             ->get();
     }
 
-    /**
-     * Muestra una lista de todos los usuarios
-     */
     public function index()
     {
-        $users = $this->getUsers();
-        return response()->json($users);
+        return response()->json($this->getUsers());
     }
 
-    /**
-     * Almacena un nuevo usuario
-     */
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
@@ -53,35 +45,24 @@ class UsersController extends Controller
         $user = new Users();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
+        $user->password = Hash::make($request->input('password')); // Hasheado
         $user->role = $request->input('role');
         $user->save();
 
-        $users = $this->getUsers();
-        return response()->json($users);
+        return response()->json($this->getUsers());
     }
 
-    /**
-     * Muestra un usuario específico
-     */
     public function show(string $id)
     {
-        $user = Users::find($id);
-        return response()->json($user);
+        return response()->json(Users::find($id));
     }
 
-    /**
-     * Actualiza un usuario existente
-     */
     public function update(Request $request, string $id)
     {
         $user = Users::find($id);
 
         if (!$user) {
-            return response()->json([
-                'msg' => 'Usuario no encontrado.',
-                'statusCode' => 404
-            ], 404);
+            return response()->json(['msg' => 'Usuario no encontrado.'], 404);
         }
 
         $validate = Validator::make($request->all(), [
@@ -104,24 +85,52 @@ class UsersController extends Controller
         $user->role = $request->input('role');
 
         if (!empty($request->input('password'))) {
-            $user->password = bcrypt($request->input('password'));
+            $user->password = Hash::make($request->input('password')); // Hasheado
         }
 
         $user->save();
 
-        $users = $this->getUsers();
-        return response()->json($users);
+        return response()->json($this->getUsers());
     }
 
-    /**
-     * Elimina un usuario
-     */
     public function destroy(string $id)
     {
         $user = Users::find($id);
         $user->delete();
 
-        $users = $this->getUsers();
-        return response()->json($users);
+        return response()->json($this->getUsers());
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+
+        $user = Users::where('email', $request->email)->first();
+
+        if (!$user) {
+            Log::debug('Correo no encontrado: ' . $request->email);
+            return response()->json(['msg' => 'Credenciales incorrectas.'], 401);
+        }
+
+        if (!Hash::check($request->password, $user->password)) {
+            Log::debug('Contraseña no coincide para el usuario: ' . $request->email);
+            Log::debug('Password enviado: ' . $request->password);
+            Log::debug('Hash en BD: ' . $user->password);
+            return response()->json(['msg' => 'Credenciales incorrectas.'], 401);
+        }
+
+        Log::debug('Login exitoso para: ' . $user->email);
+
+        return response()->json([
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ]
+        ]);
     }
 }
